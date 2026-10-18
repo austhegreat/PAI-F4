@@ -2,7 +2,7 @@ import os
 import pymupdf
 from reportlab.lib.pagesizes import A4
 from reportlab.platypus import (
-    SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle, PageBreak, KeepTogether
+    SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle, PageBreak
 )
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib import colors
@@ -16,15 +16,15 @@ pdfmetrics.registerFont(TTFont('Arial-Bold', 'C:/Windows/Fonts/arialbd.ttf'))
 pdfmetrics.registerFont(TTFont('Arial-Italic', 'C:/Windows/Fonts/ariali.ttf'))
 pdfmetrics.registerFont(TTFont('Arial-BoldItalic', 'C:/Windows/Fonts/arialbi.ttf'))
 
-# Page Geometry
-P_WIDTH, P_HEIGHT = A4  # 595.27 x 841.89 pt
+# Page Geometry: A4 (595.27 x 841.89 pt)
+P_WIDTH, P_HEIGHT = A4
 LEFT_M = 32
 RIGHT_M = P_WIDTH - 32
 CONTENT_W = RIGHT_M - LEFT_M  # 531.27 pt
 
 styles = getSampleStyleSheet()
 
-# Typography Styles
+# --- Printer-Friendly (Ink-Saver / Monochrome) Typography Styles ---
 title_style = ParagraphStyle(
     'DocTitle',
     parent=styles['Normal'],
@@ -32,7 +32,7 @@ title_style = ParagraphStyle(
     fontSize=11,
     leading=14,
     alignment=1,
-    textColor=colors.HexColor('#064e3b')
+    textColor=colors.black
 )
 
 subtitle_style = ParagraphStyle(
@@ -42,7 +42,7 @@ subtitle_style = ParagraphStyle(
     fontSize=7.5,
     leading=10,
     alignment=1,
-    textColor=colors.HexColor('#334155')
+    textColor=colors.HexColor('#222222')
 )
 
 h1_style = ParagraphStyle(
@@ -51,16 +51,7 @@ h1_style = ParagraphStyle(
     fontName='Arial-Bold',
     fontSize=8.5,
     leading=11,
-    textColor=colors.white
-)
-
-h2_style = ParagraphStyle(
-    'H2',
-    parent=styles['Normal'],
-    fontName='Arial-Bold',
-    fontSize=8,
-    leading=10.5,
-    textColor=colors.HexColor('#0f172a')
+    textColor=colors.black
 )
 
 body_style = ParagraphStyle(
@@ -69,7 +60,7 @@ body_style = ParagraphStyle(
     fontName='Arial',
     fontSize=7.2,
     leading=9.4,
-    textColor=colors.HexColor('#1e293b')
+    textColor=colors.black
 )
 
 body_bold = ParagraphStyle(
@@ -78,7 +69,7 @@ body_bold = ParagraphStyle(
     fontName='Arial-Bold',
     fontSize=7.2,
     leading=9.4,
-    textColor=colors.HexColor('#0f172a')
+    textColor=colors.black
 )
 
 tip_style = ParagraphStyle(
@@ -87,7 +78,7 @@ tip_style = ParagraphStyle(
     fontName='Arial-Italic',
     fontSize=6.8,
     leading=8.8,
-    textColor=colors.HexColor('#854d0e')
+    textColor=colors.black
 )
 
 tbl_cell_hdr = ParagraphStyle(
@@ -97,7 +88,7 @@ tbl_cell_hdr = ParagraphStyle(
     fontSize=7,
     leading=9,
     alignment=1,
-    textColor=colors.HexColor('#0f172a')
+    textColor=colors.black
 )
 
 tbl_cell = ParagraphStyle(
@@ -106,7 +97,7 @@ tbl_cell = ParagraphStyle(
     fontName='Arial',
     fontSize=6.8,
     leading=8.8,
-    textColor=colors.HexColor('#1e293b')
+    textColor=colors.black
 )
 
 tbl_cell_bold = ParagraphStyle(
@@ -115,7 +106,7 @@ tbl_cell_bold = ParagraphStyle(
     fontName='Arial-Bold',
     fontSize=6.8,
     leading=8.8,
-    textColor=colors.HexColor('#0f172a')
+    textColor=colors.black
 )
 
 class StudentNotesCanvas(canvas.Canvas):
@@ -139,35 +130,37 @@ class StudentNotesCanvas(canvas.Canvas):
         self.saveState()
         p = self._pageNumber
         
-        # TOP RUNNING HEADER
+        # TOP RUNNING HEADER (Clean black line, zero heavy ink fills)
         self.setFont('Arial-Bold', 7.5)
-        self.setFillColor(colors.HexColor('#065f46'))
+        self.setFillColor(colors.black)
         self.drawString(LEFT_M, P_HEIGHT - 22, 'MODUL NOTA LENGKAP PENDIDIKAN ISLAM TINGKATAN 4 (KSSM / SPM)')
         
         self.setFont('Arial', 7.5)
-        self.setFillColor(colors.HexColor('#64748b'))
+        self.setFillColor(colors.HexColor('#444444'))
         self.drawRightString(RIGHT_M, P_HEIGHT - 22, f'Halaman {p} daripada {total_pages}')
         
         self.setLineWidth(0.6)
-        self.setStrokeColor(colors.HexColor('#059669'))
+        self.setStrokeColor(colors.black)
         self.line(LEFT_M, P_HEIGHT - 25, RIGHT_M, P_HEIGHT - 25)
         
         # BOTTOM RUNNING FOOTER
-        self.setStrokeColor(colors.HexColor('#cbd5e1'))
+        self.setStrokeColor(colors.HexColor('#888888'))
         self.line(LEFT_M, 26, RIGHT_M, 26)
         
         self.setFont('Arial', 7)
-        self.setFillColor(colors.HexColor('#64748b'))
+        self.setFillColor(colors.HexColor('#444444'))
         self.drawString(LEFT_M, 17, 'Disusun mengikut Dokumen Standard Kurikulum & Pentaksiran (DSKP) KSSM Tingkatan 4')
-        self.drawRightString(RIGHT_M, 17, 'e-Kalam T4 • Mudah Faham, Lengkap & Padat')
+        self.drawRightString(RIGHT_M, 17, 'e-Kalam T4 • Edisi Jimat Dakwat (Ink-Saver / Print-Ready)')
         
         self.restoreState()
 
-def make_header_banner(title, color_hex='#065f46'):
+def make_header_banner(title):
+    """Clean, printer-friendly outlined banner with pure white background (saves toner/ink)."""
     p = Paragraph(f"<b>{title}</b>", h1_style)
     t = Table([[p]], colWidths=[CONTENT_W])
     t.setStyle(TableStyle([
-        ('BACKGROUND', (0,0), (-1,-1), colors.HexColor(color_hex)),
+        ('BACKGROUND', (0,0), (-1,-1), colors.HexColor('#f5f5f5')),
+        ('BOX', (0,0), (-1,-1), 0.8, colors.black),
         ('TOPPADDING', (0,0), (-1,-1), 2.5),
         ('BOTTOMPADDING', (0,0), (-1,-1), 2.5),
         ('LEFTPADDING', (0,0), (-1,-1), 6),
@@ -175,11 +168,12 @@ def make_header_banner(title, color_hex='#065f46'):
     ]))
     return t
 
-def make_card(flowables, border_color='#cbd5e1', bg_color='#ffffff'):
+def make_card(flowables):
+    """Clean white card with thin black outline."""
     t = Table([[flowables]], colWidths=[CONTENT_W])
     t.setStyle(TableStyle([
-        ('BACKGROUND', (0,0), (-1,-1), colors.HexColor(bg_color)),
-        ('BOX', (0,0), (-1,-1), 0.6, colors.HexColor(border_color)),
+        ('BACKGROUND', (0,0), (-1,-1), colors.white),
+        ('BOX', (0,0), (-1,-1), 0.5, colors.HexColor('#444444')),
         ('TOPPADDING', (0,0), (-1,-1), 3),
         ('BOTTOMPADDING', (0,0), (-1,-1), 3),
         ('LEFTPADDING', (0,0), (-1,-1), 6),
@@ -188,11 +182,12 @@ def make_card(flowables, border_color='#cbd5e1', bg_color='#ffffff'):
     return t
 
 def make_tip_box(tip_text):
+    """Clean boxed tip with subtle border and zero dark color fills."""
     p = Paragraph(f"<b>💡 Tips Peperiksaan &amp; Memori:</b> {tip_text}", tip_style)
     t = Table([[p]], colWidths=[CONTENT_W - 14])
     t.setStyle(TableStyle([
-        ('BACKGROUND', (0,0), (-1,-1), colors.HexColor('#fefce8')),
-        ('BOX', (0,0), (-1,-1), 0.5, colors.HexColor('#facc15')),
+        ('BACKGROUND', (0,0), (-1,-1), colors.HexColor('#fafafa')),
+        ('BOX', (0,0), (-1,-1), 0.5, colors.HexColor('#666666')),
         ('TOPPADDING', (0,0), (-1,-1), 2),
         ('BOTTOMPADDING', (0,0), (-1,-1), 2),
         ('LEFTPADDING', (0,0), (-1,-1), 5),
@@ -217,15 +212,15 @@ def build_pdf():
     # =========================================================================
     # MUKA SURAT 1: TILAWAH AL-QURAN & HUKUM TAJWID
     # =========================================================================
-    # Header Module Info
+    # Header Module Info (Clean Ink-Friendly Outline)
     mod_info = [
         Paragraph("<b>PANDUAN ULANG KAJI PANTAS PENDIDIKAN ISLAM TINGKATAN 4 (KSSM / SPM)</b>", title_style),
         Paragraph("<b>Rujukan Lengkap Berdasarkan Silibus Rasmi Kementerian Pendidikan Malaysia (KPM)</b><br/>Disusun dengan bahasa mudah, huraian lengkap tanpa pemotongan fakta, peta konsep, dan formula skor markah tinggi.", subtitle_style)
     ]
     hdr_box = Table([[mod_info]], colWidths=[CONTENT_W])
     hdr_box.setStyle(TableStyle([
-        ('BACKGROUND', (0,0), (-1,-1), colors.HexColor('#ecfdf5')),
-        ('BOX', (0,0), (-1,-1), 0.8, colors.HexColor('#059669')),
+        ('BACKGROUND', (0,0), (-1,-1), colors.white),
+        ('BOX', (0,0), (-1,-1), 0.9, colors.black),
         ('TOPPADDING', (0,0), (-1,-1), 3),
         ('BOTTOMPADDING', (0,0), (-1,-1), 3),
         ('LEFTPADDING', (0,0), (-1,-1), 6),
@@ -236,7 +231,7 @@ def build_pdf():
     story.append(Spacer(1, 4))
     
     # --- TAJUK 1: TILAWAH - LARANGAN MEMPERSENDAKAN AGAMA ---
-    story.append(make_header_banner("BAHAGIAN TILAWAH: LARANGAN MEMPERSENDAKAN AGAMA (Surah Al-An'am: 70)", '#047857'))
+    story.append(make_header_banner("BAHAGIAN TILAWAH: LARANGAN MEMPERSENDAKAN AGAMA (Surah Al-An'am: 70)"))
     story.append(Spacer(1, 2))
     
     tilawah_content = [
@@ -257,11 +252,11 @@ def build_pdf():
         Spacer(1, 2),
         make_tip_box("Soalan KBAT sering meminta pandangan murid tentang trend mempersenda agama di media sosial. Gunakan formula jawapan: Menasihati secara berhikmah + Menyemak fakta sahih + Melaporkan kepada pihak berkuasa JAIS agar maruah agama Islam sentiasa terpelihara.")
     ]
-    story.append(make_card(tilawah_content, border_color='#a7f3d0', bg_color='#f0fdf4'))
+    story.append(make_card(tilawah_content))
     story.append(Spacer(1, 4))
     
     # --- TAJUK 2: HUKUM TAJWID - MAD LAZIM ---
-    story.append(make_header_banner("HUKUM TAJWID: MAD LAZIM (Kadar Bacaan: Wajib 6 Harakat Secara Ijmak)", '#581c87'))
+    story.append(make_header_banner("HUKUM TAJWID: MAD LAZIM (Kadar Bacaan: Wajib 6 Harakat Secara Ijmak)"))
     story.append(Spacer(1, 2))
     
     tajwid_table_data = [
@@ -298,9 +293,9 @@ def build_pdf():
     ]
     tajwid_tbl = Table(tajwid_table_data, colWidths=[105, 150, 115, 145])
     tajwid_tbl.setStyle(TableStyle([
-        ('BOX', (0,0), (-1,-1), 0.6, colors.HexColor('#6b21a8')),
-        ('INNERGRID', (0,0), (-1,-1), 0.4, colors.HexColor('#d8b4fe')),
-        ('BACKGROUND', (0,0), (-1,0), colors.HexColor('#f3e8ff')),
+        ('BOX', (0,0), (-1,-1), 0.6, colors.black),
+        ('INNERGRID', (0,0), (-1,-1), 0.4, colors.HexColor('#888888')),
+        ('BACKGROUND', (0,0), (-1,0), colors.HexColor('#f5f5f5')),
         ('VALIGN', (0,0), (-1,-1), 'MIDDLE'),
         ('TOPPADDING', (0,0), (-1,-1), 2),
         ('BOTTOMPADDING', (0,0), (-1,-1), 2),
@@ -315,7 +310,7 @@ def build_pdf():
         Spacer(1, 2),
         make_tip_box("Hafal 8 huruf Mad Harfi melalui formula kata: <b>\"Naqasa 'Asalukum\" (N-Q-S-'A-S-L-K-M)</b> iaitu Nun, Qaf, Sad, 'Ain, Sin, Lam, Kaf, Mim. Jika huruf fawatih as-suwar selain huruf ini (seperti Ha, Ya, Tha, Ha, Ra - 'Hayyun Tahara'), ia dibaca 2 harakat sahaja (Mad Asli Harfi), BUKAN 6 harakat!")
     ]
-    story.append(make_card(tajwid_content, border_color='#d8b4fe', bg_color='#faf5ff'))
+    story.append(make_card(tajwid_content))
     
     # End of Page 1
     story.append(PageBreak())
@@ -323,7 +318,7 @@ def build_pdf():
     # =========================================================================
     # MUKA SURAT 2: HADIS & AKIDAH
     # =========================================================================
-    story.append(make_header_banner("BAHAGIAN HADIS: 7 DOSA BESAR YANG MEMBINASAKAN (Al-Mubiqaat)", '#0f766e'))
+    story.append(make_header_banner("BAHAGIAN HADIS: 7 DOSA BESAR YANG MEMBINASAKAN (Al-Mubiqaat)"))
     story.append(Spacer(1, 2))
     
     hadis_content = [
@@ -342,11 +337,11 @@ def build_pdf():
         Spacer(1, 2),
         make_tip_box("Dalam soalan peperiksaan, pastikan anda TIDAK tertukar antara maksud Riba (faedah tambahan dalam pinjaman) dan Qazaf (menuduh wanita suci berzina). Hafal turutan tujuh dosa ini kerana ia kerap ditanya dalam soalan struktur dan padanan!")
     ]
-    story.append(make_card(hadis_content, border_color='#99f6e4', bg_color='#f0fdfa'))
+    story.append(make_card(hadis_content))
     story.append(Spacer(1, 4))
     
     # --- TAJUK 4: AKIDAH - AL-JABBAR & AJARAN SESAT ---
-    story.append(make_header_banner("BAHAGIAN AKIDAH: NAMA ALLAH AL-JABBAR & BAHAYA AJARAN SESAT", '#0284c7'))
+    story.append(make_header_banner("BAHAGIAN AKIDAH: NAMA ALLAH AL-JABBAR & BAHAYA AJARAN SESAT"))
     story.append(Spacer(1, 2))
     
     akidah_content = [
@@ -366,7 +361,7 @@ def build_pdf():
         Spacer(1, 2),
         make_tip_box("Soalan KBAT sering bertanyakan: 'Bagaimanakah remaja boleh terhindar daripada ajaran sesat di internet?' Jawapan cemerlang: Menyemak kesahihan sumber maklumat di laman web rasmi pihak berkuasa agama dan tidak mudah terpesona dengan dakwaan mimpi atau amalan pelik tanpa dalil sahih.")
     ]
-    story.append(make_card(akidah_content, border_color='#bae6fd', bg_color='#f0f9ff'))
+    story.append(make_card(akidah_content))
     
     # End of Page 2
     story.append(PageBreak())
@@ -374,7 +369,7 @@ def build_pdf():
     # =========================================================================
     # MUKA SURAT 3: IBADAH (MUAMALAT & SOLAT GERHANA)
     # =========================================================================
-    story.append(make_header_banner("BAHAGIAN IBADAH: SISTEM MUAMALAT ISLAM & ENAM JENIS AKAD", '#1e40af'))
+    story.append(make_header_banner("BAHAGIAN IBADAH: SISTEM MUAMALAT ISLAM & ENAM JENIS AKAD"))
     story.append(Spacer(1, 2))
     
     muamalat_tbl_data = [
@@ -416,9 +411,9 @@ def build_pdf():
     ]
     muamalat_tbl = Table(muamalat_tbl_data, colWidths=[90, 240, 185])
     muamalat_tbl.setStyle(TableStyle([
-        ('BOX', (0,0), (-1,-1), 0.6, colors.HexColor('#1e40af')),
-        ('INNERGRID', (0,0), (-1,-1), 0.4, colors.HexColor('#bfdbfe')),
-        ('BACKGROUND', (0,0), (-1,0), colors.HexColor('#dbeafe')),
+        ('BOX', (0,0), (-1,-1), 0.6, colors.black),
+        ('INNERGRID', (0,0), (-1,-1), 0.4, colors.HexColor('#888888')),
+        ('BACKGROUND', (0,0), (-1,0), colors.HexColor('#f5f5f5')),
         ('VALIGN', (0,0), (-1,-1), 'MIDDLE'),
         ('TOPPADDING', (0,0), (-1,-1), 2),
         ('BOTTOMPADDING', (0,0), (-1,-1), 2),
@@ -433,11 +428,11 @@ def build_pdf():
         Spacer(1, 2),
         Paragraph("<b>Hikmah Pensyariatan:</b> Menghapuskan penindasan ekonomi oleh golongan kaya terhadap orang miskin, memastikan setiap urus niaga diberkati Allah, serta mengelakkan pertikaian dan permusuhan dalam masyarakat.", body_style)
     ]
-    story.append(make_card(muamalat_content, border_color='#bfdbfe', bg_color='#eff6ff'))
+    story.append(make_card(muamalat_content))
     story.append(Spacer(1, 4))
     
     # --- TAJUK 6: IBADAH - SOLAT SUNAT GERHANA ---
-    story.append(make_header_banner("BAHAGIAN IBADAH: SOLAT SUNAT GERHANA MATAHARI & BULAN (Kusuf & Khusuf)", '#3730a3'))
+    story.append(make_header_banner("BAHAGIAN IBADAH: SOLAT SUNAT GERHANA MATAHARI & BULAN (Kusuf & Khusuf)"))
     story.append(Spacer(1, 2))
     
     gerhana_content = [
@@ -457,7 +452,7 @@ def build_pdf():
         Spacer(1, 2),
         make_tip_box("Hafal perbezaan istilah: <b>Kusuf</b> (dimulai huruf K) untuk Gerhana <b>Matahari</b>; manakala <b>Khusuf</b> (dimulai huruf Kh) untuk Gerhana <b>Bulan</b>. Jangan terbalikkan istilah ini dalam ujian!")
     ]
-    story.append(make_card(gerhana_content, border_color='#c7d2fe', bg_color='#eef2ff'))
+    story.append(make_card(gerhana_content))
     
     # End of Page 3
     story.append(PageBreak())
@@ -465,7 +460,7 @@ def build_pdf():
     # =========================================================================
     # MUKA SURAT 4: SIRAH & ADAB ISLAMIAH
     # =========================================================================
-    story.append(make_header_banner("BAHAGIAN SIRAH: TOKOH IMAM ASY-SYAFI'I R.A. & TAMADUN UMAIYYAH", '#92400e'))
+    story.append(make_header_banner("BAHAGIAN SIRAH: TOKOH IMAM ASY-SYAFI'I R.A. & TAMADUN UMAIYYAH"))
     story.append(Spacer(1, 2))
     
     sirah_content = [
@@ -485,11 +480,11 @@ def build_pdf():
                   "  4. <i>Umar bin Abdul Aziz (Pemerintah Adil):</i> Digelar Khalifah ar-Rasyidin kelima kerana keadilan pemerintahannya. Beliau menghapuskan cukai yang membebankan rakyat, mengembalikan harta Baitulmal yang disalah guna, memecat pegawai zalim, dan mengarahkan pembukuan hadis secara rasmi.<br/>"
                   "• <b>Faktor Kejatuhan:</b> Perebutan takhta dalam kalangan kerabat istana, kelemahan khalifah akhir yang leka dengan kemewahan dunia, dan kemunculan revolusi Bani Abbasiyyah.", body_style)
     ]
-    story.append(make_card(sirah_content, border_color='#fde68a', bg_color='#fffbeb'))
+    story.append(make_card(sirah_content))
     story.append(Spacer(1, 4))
     
     # --- TAJUK 8: ADAB ISLAMIAH: KHAUF & RAJA' DAN ADAB TERHADAP ORANG SAKIT ---
-    story.append(make_header_banner("BAHAGIAN ADAB: KHAUF & RAJA' SERTA ADAB TERHADAP ORANG SAKIT", '#9f1239'))
+    story.append(make_header_banner("BAHAGIAN ADAB: KHAUF & RAJA' SERTA ADAB TERHADAP ORANG SAKIT"))
     story.append(Spacer(1, 2))
     
     adab_content = [
@@ -507,11 +502,11 @@ def build_pdf():
         make_tip_box("<b>Formula Menjawab Soalan KBAT 4 Markah SPM:</b> Gunakan formula <b>I + H + HL + K</b>:<br/>"
                      "<b>[Isi (1m)]:</b> Nyatakan fakta utama secara tepat. &gt; <b>[Huraian (1m)]:</b> Berikan hujah/sebab (gunakan kata hubung 'kerana / dengan cara'). &gt; <b>[Huraian Lengkap (1m)]:</b> Terangkan kesan/contoh (gunakan 'kesannya / contohnya'). &gt; <b>[Kesimpulan (1m)]:</b> Berikan cadangan penutup (gunakan 'Kesimpulannya, kita hendaklah... agar...').")
     ]
-    story.append(make_card(adab_content, border_color='#fecdd3', bg_color='#fff1f2'))
+    story.append(make_card(adab_content))
     
     # Build Document
     doc.build(story, canvasmaker=StudentNotesCanvas)
-    print("Nota Lengkap 4 Pages build successful:", pdf_filename)
+    print("Nota Lengkap 4 Pages (Ink-Saver) build successful:", pdf_filename)
 
 if __name__ == "__main__":
     build_pdf()
