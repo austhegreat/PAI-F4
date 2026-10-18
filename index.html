@@ -1,0 +1,1731 @@
+<!DOCTYPE html>
+<html lang="ms" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>e-Kalam T4 | Gerbang Ulang Kaji Pendidikan Islam Tingkatan 4</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts: Plus Jakarta Sans & Amiri (for Arabic) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            arabic: ['"Amiri"', 'serif']
+          },
+          colors: {
+            emerald: {
+              50: '#ecfdf5',
+              100: '#d1fae5',
+              200: '#a7f3d0',
+              600: '#059669',
+              700: '#047857',
+              800: '#065f46',
+              900: '#064e3b',
+              950: '#022c22',
+            },
+            amber: {
+              400: '#fbbf24',
+              500: '#f59e0b',
+              600: '#d97706',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Custom Scrollbar & Utilities */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f1f5f9;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8;
+    }
+    .arabic-text {
+      font-family: 'Amiri', serif;
+      direction: rtl;
+    }
+    @media print {
+      nav, footer, #quiz, #flashcards, .no-print {
+        display: none !important;
+      }
+      body {
+        background: white !important;
+        color: black !important;
+      }
+      .card-expand {
+        break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased selection:bg-emerald-200 selection:text-emerald-900 font-sans min-h-screen flex flex-col">
+
+  <!-- ================= NAVBAR ================= -->
+  <nav class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-emerald-100 shadow-sm transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <!-- Brand -->
+        <a href="#" class="flex items-center gap-3 group">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-emerald-800 to-emerald-600 flex items-center justify-center text-amber-300 shadow-md group-hover:scale-105 transition-transform">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+            </svg>
+          </div>
+          <div>
+            <span class="text-xl font-bold bg-gradient-to-r from-emerald-900 to-emerald-700 bg-clip-text text-transparent">e-Kalam T4</span>
+            <span class="hidden sm:inline-block text-xs font-semibold px-2 py-0.5 ml-2 bg-emerald-100 text-emerald-800 rounded-full border border-emerald-200">KSSM Peperiksaan</span>
+          </div>
+        </a>
+
+        <!-- Desktop Menu -->
+        <div class="hidden md:flex items-center gap-6 text-sm font-medium text-slate-600">
+          <a href="#topik" class="hover:text-emerald-700 transition">7 Bahagian Teras</a>
+          <a href="#flashcards" class="hover:text-emerald-700 transition">Kad Imbasan</a>
+          <a href="#quiz" class="hover:text-emerald-700 transition">Kuiz SPM</a>
+          <a href="#kbat" class="hover:text-emerald-700 transition">Teknik KBAT</a>
+        </div>
+
+        <!-- Right Side: Tracker & Action -->
+        <div class="flex items-center gap-3">
+          <div class="hidden sm:flex items-center gap-2 bg-emerald-50 px-3 py-1.5 rounded-full border border-emerald-200 text-xs font-semibold text-emerald-800">
+            <svg class="w-4 h-4 text-emerald-600" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+            </svg>
+            <span id="tracker-counter">0/10 Topik Dikuasai</span>
+          </div>
+          <button onclick="window.print()" class="no-print p-2 rounded-lg text-slate-600 hover:text-emerald-700 hover:bg-emerald-50 transition" title="Cetak Nota / Simpan PDF">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ================= HERO SECTION ================= -->
+  <header class="relative bg-gradient-to-br from-emerald-900 via-emerald-800 to-teal-900 text-white overflow-hidden py-14 lg:py-20">
+    <!-- Islamic Pattern Background Overlay -->
+    <div class="absolute inset-0 opacity-10 pointer-events-none">
+      <svg class="w-full h-full" xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 80 80">
+        <path d="M0 0h80v80H0z" fill="none"/>
+        <path d="M40 0l40 40-40 40L0 40 40 0zm0 14.14L14.14 40 40 65.86 65.86 40 40 14.14z" fill="#ffffff" fill-opacity="0.6"/>
+      </svg>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+      <!-- Badge -->
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-700/60 border border-emerald-500/40 text-emerald-200 text-xs sm:text-sm font-medium mb-6 backdrop-blur-sm shadow-inner">
+        <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+        Silibus Lengkap KSSM Tingkatan 4 & Peperiksaan Akhir Tahun
+      </div>
+
+      <!-- Main Headline -->
+      <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white mb-6 leading-tight">
+        Kuasai Kata Kunci Penting <br>
+        <span class="bg-gradient-to-r from-amber-300 via-amber-200 to-emerald-200 bg-clip-text text-transparent">Pendidikan Islam Tingkatan 4</span>
+      </h1>
+
+      <p class="max-w-3xl mx-auto text-base sm:text-lg text-emerald-100/90 mb-8 font-light leading-relaxed">
+        Pecutan pantas untuk murid Tingkatan 4! Fahami konsep teras, hukum tajwid, dalil naqli, dan kata kunci skema pemarkahan bagi 7 bahagian utama untuk menjamin gred A+ dalam peperiksaan.
+      </p>
+
+      <!-- Quick Search Bar -->
+      <div class="max-w-2xl mx-auto mb-10">
+        <div class="relative flex items-center">
+          <input 
+            type="text" 
+            id="searchInput"
+            placeholder="Cari kata kunci (cth: Al-Jabbar, Mad Lazim, Riba, Syafie, Gerhana, Khauf)..." 
+            class="w-full pl-12 pr-28 py-4 rounded-2xl bg-white/95 text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-4 focus:ring-amber-400/50 shadow-2xl text-sm sm:text-base transition"
+            onkeyup="filterTopics()"
+          />
+          <div class="absolute left-4 text-emerald-700">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+            </svg>
+          </div>
+          <button 
+            onclick="clearSearch()"
+            id="clearSearchBtn"
+            class="hidden absolute right-3 px-3 py-1.5 text-xs font-semibold rounded-lg bg-slate-200 text-slate-600 hover:bg-slate-300 transition"
+          >
+            Padam
+          </button>
+        </div>
+        <p class="text-xs text-emerald-200/80 mt-2 text-left sm:text-center">
+          💡 Kata kunci popular: <span class="underline cursor-pointer hover:text-white" onclick="quickSearch('Mad Lazim')">Mad Lazim</span>, <span class="underline cursor-pointer hover:text-white" onclick="quickSearch('7 Dosa Besar')">7 Dosa Besar</span>, <span class="underline cursor-pointer hover:text-white" onclick="quickSearch('Al-Jabbar')">Al-Jabbar</span>, <span class="underline cursor-pointer hover:text-white" onclick="quickSearch('Muamalat')">Muamalat</span>, <span class="underline cursor-pointer hover:text-white" onclick="quickSearch('Umaiyyah')">Umaiyyah</span>
+        </p>
+      </div>
+
+      <!-- Quick Stats / Metrics -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-4xl mx-auto pt-4 border-t border-emerald-700/60">
+        <div class="bg-emerald-800/40 backdrop-blur-sm p-3.5 rounded-xl border border-emerald-600/30">
+          <div class="text-2xl sm:text-3xl font-extrabold text-amber-300">7</div>
+          <div class="text-xs text-emerald-200 font-medium">Bahagian Silibus</div>
+        </div>
+        <div class="bg-emerald-800/40 backdrop-blur-sm p-3.5 rounded-xl border border-emerald-600/30">
+          <div class="text-2xl sm:text-3xl font-extrabold text-amber-300">10</div>
+          <div class="text-xs text-emerald-200 font-medium">Tajuk Tumpuan</div>
+        </div>
+        <div class="bg-emerald-800/40 backdrop-blur-sm p-3.5 rounded-xl border border-emerald-600/30">
+          <div class="text-2xl sm:text-3xl font-extrabold text-amber-300">40+</div>
+          <div class="text-xs text-emerald-200 font-medium">Kata Kunci Wajib</div>
+        </div>
+        <div class="bg-emerald-800/40 backdrop-blur-sm p-3.5 rounded-xl border border-emerald-600/30">
+          <div class="text-2xl sm:text-3xl font-extrabold text-amber-300">100%</div>
+          <div class="text-xs text-emerald-200 font-medium">Skema SPM Ready</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= TOPIC FILTER TABS ================= -->
+  <section id="topik" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-4">
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
+      <div>
+        <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 flex items-center gap-2">
+          <span>📖 Modul Nota Kata Kunci Peperiksaan</span>
+        </h2>
+        <p class="text-sm text-slate-500 mt-1">Tekan kad untuk membaca huraian terperinci, contoh dalil, dan kata kunci wajib skor.</p>
+      </div>
+
+      <!-- Filter Buttons -->
+      <div class="flex flex-wrap gap-2 text-xs font-semibold" id="categoryTabs">
+        <button onclick="filterCategory('all', this)" class="category-btn active px-3.5 py-2 rounded-xl bg-emerald-800 text-white shadow-sm transition">Semua (10)</button>
+        <button onclick="filterCategory('tilawah', this)" class="category-btn px-3 py-2 rounded-xl bg-white text-slate-700 hover:bg-emerald-50 border border-slate-200 transition">Tilawah</button>
+        <button onclick="filterCategory('hadis', this)" class="category-btn px-3 py-2 rounded-xl bg-white text-slate-700 hover:bg-emerald-50 border border-slate-200 transition">Hadis</button>
+        <button onclick="filterCategory('tajwid', this)" class="category-btn px-3 py-2 rounded-xl bg-white text-slate-700 hover:bg-emerald-50 border border-slate-200 transition">Tajwid</button>
+        <button onclick="filterCategory('akidah', this)" class="category-btn px-3 py-2 rounded-xl bg-white text-slate-700 hover:bg-emerald-50 border border-slate-200 transition">Akidah</button>
+        <button onclick="filterCategory('ibadah', this)" class="category-btn px-3 py-2 rounded-xl bg-white text-slate-700 hover:bg-emerald-50 border border-slate-200 transition">Ibadah</button>
+        <button onclick="filterCategory('sirah', this)" class="category-btn px-3 py-2 rounded-xl bg-white text-slate-700 hover:bg-emerald-50 border border-slate-200 transition">Sirah</button>
+        <button onclick="filterCategory('adab', this)" class="category-btn px-3 py-2 rounded-xl bg-white text-slate-700 hover:bg-emerald-50 border border-slate-200 transition">Adab</button>
+      </div>
+    </div>
+
+    <!-- Empty state for search -->
+    <div id="noResults" class="hidden text-center py-12 bg-white rounded-2xl border border-dashed border-slate-300">
+      <p class="text-slate-500 font-medium">Tiada tajuk atau kata kunci ditemui. Cuba kata carian lain.</p>
+      <button onclick="clearSearch()" class="mt-3 px-4 py-2 bg-emerald-700 text-white text-xs font-semibold rounded-lg hover:bg-emerald-800">Set Semula Carian</button>
+    </div>
+
+    <!-- CARDS GRID -->
+    <div id="topicsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+      <!-- TOPIC 1: TILAWAH - LARANGAN MEMPERSENDAKAN AGAMA -->
+      <div class="topic-card bg-white rounded-2xl p-6 border border-slate-200 hover:border-emerald-500 hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
+           data-category="tilawah"
+           data-title="Larangan Mempersendakan Agama"
+           data-keywords="larangan mempersendakan agama istihza surah al-anam 70 menghina islam murtad azab neraka maksiat">
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <span class="px-2.5 py-1 text-xs font-bold rounded-lg bg-emerald-100 text-emerald-800 border border-emerald-200">
+              Bhgn Tilawah (Surah Al-An'am: 70)
+            </span>
+            <input type="checkbox" id="check-1" onchange="toggleMastered(1)" class="w-4 h-4 text-emerald-600 rounded border-gray-300 focus:ring-emerald-500 cursor-pointer" title="Tanda telah dikuasai">
+          </div>
+
+          <h3 class="text-xl font-bold text-slate-900 mb-2">Larangan Mempersendakan Agama</h3>
+          <p class="text-sm text-slate-600 mb-4 line-clamp-2">
+            Larangan keras bergaul rapat & bersubahat dengan golongan yang mempermainkan hukum Allah serta menjadikannya bahan gurauan.
+          </p>
+
+          <!-- Core Keywords Pill Group -->
+          <div class="mb-4">
+            <span class="text-xs font-semibold text-slate-500 block mb-1.5">Kata Kunci Peperiksaan:</span>
+            <div class="flex flex-wrap gap-1.5">
+              <span class="px-2 py-0.5 text-xs bg-amber-50 text-amber-800 border border-amber-200 rounded-md font-medium">Istihza' (Mempersenda)</span>
+              <span class="px-2 py-0.5 text-xs bg-amber-50 text-amber-800 border border-amber-200 rounded-md font-medium">Batal Iman</span>
+              <span class="px-2 py-0.5 text-xs bg-amber-50 text-amber-800 border border-amber-200 rounded-md font-medium">Minuman Air Menggelegak</span>
+              <span class="px-2 py-0.5 text-xs bg-amber-50 text-amber-800 border border-amber-200 rounded-md font-medium">Menghina Syiar Islam</span>
+            </div>
+          </div>
+        </div>
+
+        <button onclick="openModal('modal-tilawah')" class="w-full mt-2 py-2.5 px-4 bg-emerald-50 hover:bg-emerald-700 text-emerald-800 hover:text-white font-semibold text-xs rounded-xl transition flex items-center justify-center gap-2">
+          <span>Buka Nota Penuh & Skema</span>
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+
+      <!-- TOPIC 2: HADIS - 7 DOSA BESAR -->
+      <div class="topic-card bg-white rounded-2xl p-6 border border-slate-200 hover:border-emerald-500 hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
+           data-category="hadis"
+           data-title="7 Dosa Besar Yang Mesti Dijauhi"
+           data-keywords="7 dosa besar hadis al-mubiqaat syirik sihir membunuh riba anak yatim lari perang qazaf tuduh zina">
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <span class="px-2.5 py-1 text-xs font-bold rounded-lg bg-teal-100 text-teal-800 border border-teal-200">
+              Bhgn Hadis (Al-Mubiqaat)
+            </span>
+            <input type="checkbox" id="check-2" onchange="toggleMastered(2)" class="w-4 h-4 text-emerald-600 rounded border-gray-300 focus:ring-emerald-500 cursor-pointer">
+          </div>
+
+          <h3 class="text-xl font-bold text-slate-900 mb-2">7 Dosa Besar Yang Mesti Dijauhi</h3>
+          <p class="text-sm text-slate-600 mb-4 line-clamp-2">
+            Tujuh perbuatan maksiat paling membinasakan diri, keturunan, dan masyarakat berdasarkan sabda Rasulullah SAW.
+          </p>
+
+          <div class="mb-4">
+            <span class="text-xs font-semibold text-slate-500 block mb-1.5">Kata Kunci Peperiksaan:</span>
+            <div class="flex flex-wrap gap-1.5">
+              <span class="px-2 py-0.5 text-xs bg-amber-50 text-amber-800 border border-amber-200 rounded-md font-medium">Syirik (Jali & Khafi)</span>
+              <span class="px-2 py-0.5 text-xs bg-amber-50 text-amber-800 border border-amber-200 rounded-md font-medium">Sihir (Bantuan Jin)</span>
+              <span class="px-2 py-0.5 text-xs bg-amber-50 text-amber-800 border border-amber-200 rounded-md font-medium">Makan Riba</span>
+              <span class="px-2 py-0.5 text-xs bg-amber-50 text-amber-800 border border-amber-200 rounded-md font-medium">Harta Anak Yatim</span>
+              <span class="px-2 py-0.5 text-xs bg-amber-50 text-amber-800 border border-amber-200 rounded-md font-medium">Qazaf (Tuduh Zina)</span>
+            </div>
+          </div>
+        </div>
+
+        <button onclick="openModal('modal-hadis')" class="w-full mt-2 py-2.5 px-4 bg-emerald-50 hover:bg-emerald-700 text-emerald-800 hover:text-white font-semibold text-xs rounded-xl transition flex items-center justify-center gap-2">
+          <span>Buka Nota Penuh & Skema</span>
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+
+      <!-- TOPIC 3: TAJWID - MAD LAZIM -->
+      <div class="topic-card bg-white rounded-2xl p-6 border border-slate-200 hover:border-emerald-500 hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
+           data-category="tajwid"
+           data-title="Hukum Tajwid: Mad Lazim"
+           data-keywords="tajwid mad lazim kalimi harfi muthaqqal mukhaffaf 6 harakat naqasa asalukum">
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <span class="px-2.5 py-1 text-xs font-bold rounded-lg bg-purple-100 text-purple-800 border border-purple-200">
+              Hukum Tajwid (6 Harakat)
+            </span>
+            <input type="checkbox" id="check-3" onchange="toggleMastered(3)" class="w-4 h-4 text-emerald-600 rounded border-gray-300 focus:ring-emerald-500 cursor-pointer">
+          </div>
+
+          <h3 class="text-xl font-bold text-slate-900 mb-2">Mad Lazim (4 Bahagian)</h3>
+          <p class="text-sm text-slate-600 mb-4 line-clamp-2">
+            Hukum mad yang wajib dibaca 6 harakat. Dibahagikan kepada Kalimi (perkataan) dan Harfi (huruf awal surah).
+          </p>
+
+          <div class="mb-4">
+            <span class="text-xs font-semibold text-slate-500 block mb-1.5">Kata Kunci Peperiksaan:</span>
+            <div class="flex flex-wrap gap-1.5">
+              <span class="px-2 py-0.5 text-xs bg-amber-50 text-amber-800 border border-amber-200 rounded-md font-medium">Kalimi Muthaqqal (Sabdu)</span>
+              <span class="px-2 py-0.5 text-xs bg-amber-50 text-amber-800 border border-amber-200 rounded-md font-medium">Kalimi Mukhaffaf (Sukun)</span>
+              <span class="px-2 py-0.5 text-xs bg-amber-50 text-amber-800 border border-amber-200 rounded-md font-medium">Harfi Muthaqqal (Idgham)</span>
+              <span class="px-2 py-0.5 text-xs bg-amber-50 text-amber-800 border border-amber-200 rounded-md font-medium">نَقَصَ عَسَلُكُمْ (8 Huruf)</span>
+            </div>
+          </div>
+        </div>
+
+        <button onclick="openModal('modal-tajwid')" class="w-full mt-2 py-2.5 px-4 bg-emerald-50 hover:bg-emerald-700 text-emerald-800 hover:text-white font-semibold text-xs rounded-xl transition flex items-center justify-center gap-2">
+          <span>Buka Nota Penuh & Skema</span>
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+
+      <!-- TOPIC 4: AKIDAH - AL-JABBAR -->
+      <div class="topic-card bg-white rounded-2xl p-6 border border-slate-200 hover:border-emerald-500 hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
+           data-category="akidah"
+           data-title="Al-Jabbar (Nama Allah SWT)"
+           data-keywords="akidah al-jabbar maha perkasa memaksa memperbaiki takabbur sombong tawaduk">
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <span class="px-2.5 py-1 text-xs font-bold rounded-lg bg-sky-100 text-sky-800 border border-sky-200">
+              Bhgn Akidah (Asmaul Husna)
+            </span>
+            <input type="checkbox" id="check-4" onchange="toggleMastered(4)" class="w-4 h-4 text-emerald-600 rounded border-gray-300 focus:ring-emerald-500 cursor-pointer">
+          </div>
+
+          <h3 class="text-xl font-bold text-slate-900 mb-2">Nama Allah: Al-Jabbar</h3>
+          <p class="text-sm text-slate-600 mb-4 line-clamp-2">
+            Maha Berkuasa Memaksa dan Maha Memperbaiki segala urusan makhluk menurut kehendak-Nya yang mutlak.
+          </p>
+
+          <div class="mb-4">
+            <span class="text-xs font-semibold text-slate-500 block mb-1.5">Kata Kunci Peperiksaan:</span>
+            <div class="flex flex-wrap gap-1.5">
+              <span class="px-2 py-0.5 text-xs bg-amber-50 text-amber-800 border border-amber-200 rounded-md font-medium">Maha Berkuasa Memaksa</span>
+              <span class="px-2 py-0.5 text-xs bg-amber-50 text-amber-800 border border-amber-200 rounded-md font-medium">Tiada Tandingan</span>
+              <span class="px-2 py-0.5 text-xs bg-amber-50 text-amber-800 border border-amber-200 rounded-md font-medium">Jauhi Takabbur</span>
+              <span class="px-2 py-0.5 text-xs bg-amber-50 text-amber-800 border border-amber-200 rounded-md font-medium">Tawaduk & Reda</span>
+            </div>
+          </div>
+        </div>
+
+        <button onclick="openModal('modal-aljabbar')" class="w-full mt-2 py-2.5 px-4 bg-emerald-50 hover:bg-emerald-700 text-emerald-800 hover:text-white font-semibold text-xs rounded-xl transition flex items-center justify-center gap-2">
+          <span>Buka Nota Penuh & Skema</span>
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+
+      <!-- TOPIC 5: AKIDAH - AJARAN SESAT -->
+      <div class="topic-card bg-white rounded-2xl p-6 border border-slate-200 hover:border-emerald-500 hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
+           data-category="akidah"
+           data-title="Ajaran Sesat"
+           data-keywords="akidah ajaran sesat ciri kesan cara atasi mengaku nabi imam mahdi ubah rukun islam nikah batin taksub">
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <span class="px-2.5 py-1 text-xs font-bold rounded-lg bg-sky-100 text-sky-800 border border-sky-200">
+              Bhgn Akidah (Penyimpangan)
+            </span>
+            <input type="checkbox" id="check-5" onchange="toggleMastered(5)" class="w-4 h-4 text-emerald-600 rounded border-gray-300 focus:ring-emerald-500 cursor-pointer">
+          </div>
+
+          <h3 class="text-xl font-bold text-slate-900 mb-2">Ajaran Sesat</h3>
+          <p class="text-sm text-slate-600 mb-4 line-clamp-2">
+            Ajaran atau amalan yang didakwa daripada Islam tetapi bercanggah dengan al-Quran, Sunnah, dan Ijmak Ulama.
+          </p>
+
+          <div class="mb-4">
+            <span class="text-xs font-semibold text-slate-500 block mb-1.5">Kata Kunci Peperiksaan:</span>
+            <div class="flex flex-wrap gap-1.5">
+              <span class="px-2 py-0.5 text-xs bg-amber-50 text-amber-800 border border-amber-200 rounded-md font-medium">Mengaku Nabi / Imam Mahdi</span>
+              <span class="px-2 py-0.5 text-xs bg-amber-50 text-amber-800 border border-amber-200 rounded-md font-medium">Ubah Rukun Islam/Iman</span>
+              <span class="px-2 py-0.5 text-xs bg-amber-50 text-amber-800 border border-amber-200 rounded-md font-medium">Nikah Batin / Bebas Maksiat</span>
+              <span class="px-2 py-0.5 text-xs bg-amber-50 text-amber-800 border border-amber-200 rounded-md font-medium">Taksub Melampau</span>
+            </div>
+          </div>
+        </div>
+
+        <button onclick="openModal('modal-ajaransesat')" class="w-full mt-2 py-2.5 px-4 bg-emerald-50 hover:bg-emerald-700 text-emerald-800 hover:text-white font-semibold text-xs rounded-xl transition flex items-center justify-center gap-2">
+          <span>Buka Nota Penuh & Skema</span>
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+
+      <!-- TOPIC 6: IBADAH - MUAMALAT ISLAM -->
+      <div class="topic-card bg-white rounded-2xl p-6 border border-slate-200 hover:border-emerald-500 hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
+           data-category="ibadah"
+           data-title="Muamalat Islam"
+           data-keywords="ibadah muamalat islam bai ijarah rahnu musyarakah mudharabah wadiah riba gharar maisir">
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <span class="px-2.5 py-1 text-xs font-bold rounded-lg bg-indigo-100 text-indigo-800 border border-indigo-200">
+              Bhgn Ibadah (Kewangan Islam)
+            </span>
+            <input type="checkbox" id="check-6" onchange="toggleMastered(6)" class="w-4 h-4 text-emerald-600 rounded border-gray-300 focus:ring-emerald-500 cursor-pointer">
+          </div>
+
+          <h3 class="text-xl font-bold text-slate-900 mb-2">Muamalat Islam</h3>
+          <p class="text-sm text-slate-600 mb-4 line-clamp-2">
+            Hukum syarak berkaitan urusan kewangan & kebendaan antara manusia berlandaskan keadilan, kejujuran, dan reda.
+          </p>
+
+          <div class="mb-4">
+            <span class="text-xs font-semibold text-slate-500 block mb-1.5">Kata Kunci Peperiksaan:</span>
+            <div class="flex flex-wrap gap-1.5">
+              <span class="px-2 py-0.5 text-xs bg-amber-50 text-amber-800 border border-amber-200 rounded-md font-medium">Bebas Riba & Gharar</span>
+              <span class="px-2 py-0.5 text-xs bg-amber-50 text-amber-800 border border-amber-200 rounded-md font-medium">Al-Bai' (Jual Beli)</span>
+              <span class="px-2 py-0.5 text-xs bg-amber-50 text-amber-800 border border-amber-200 rounded-md font-medium">Al-Ijarah (Sewaan)</span>
+              <span class="px-2 py-0.5 text-xs bg-amber-50 text-amber-800 border border-amber-200 rounded-md font-medium">Ar-Rahnu (Gadaian)</span>
+              <span class="px-2 py-0.5 text-xs bg-amber-50 text-amber-800 border border-amber-200 rounded-md font-medium">Mudharabah & Wadiah</span>
+            </div>
+          </div>
+        </div>
+
+        <button onclick="openModal('modal-muamalat')" class="w-full mt-2 py-2.5 px-4 bg-emerald-50 hover:bg-emerald-700 text-emerald-800 hover:text-white font-semibold text-xs rounded-xl transition flex items-center justify-center gap-2">
+          <span>Buka Nota Penuh & Skema</span>
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+
+      <!-- TOPIC 7: IBADAH - SOLAT SUNAT GERHANA -->
+      <div class="topic-card bg-white rounded-2xl p-6 border border-slate-200 hover:border-emerald-500 hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
+           data-category="ibadah"
+           data-title="Solat Sunat Gerhana (Kusuf & Khusuf)"
+           data-keywords="ibadah solat gerhana kusuf khusuf matahari bulan sunat muakkad 4 rukuk 4 qiam 2 khutbah">
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <span class="px-2.5 py-1 text-xs font-bold rounded-lg bg-indigo-100 text-indigo-800 border border-indigo-200">
+              Bhgn Ibadah (Solat Sunat)
+            </span>
+            <input type="checkbox" id="check-7" onchange="toggleMastered(7)" class="w-4 h-4 text-emerald-600 rounded border-gray-300 focus:ring-emerald-500 cursor-pointer">
+          </div>
+
+          <h3 class="text-xl font-bold text-slate-900 mb-2">Solat Sunat Gerhana</h3>
+          <p class="text-sm text-slate-600 mb-4 line-clamp-2">
+            Solat sunat muakkad ketika berlakunya gerhana matahari (Kusuf) atau bulan (Khusuf) dengan tatacara solat yang istimewa.
+          </p>
+
+          <div class="mb-4">
+            <span class="text-xs font-semibold text-slate-500 block mb-1.5">Kata Kunci Peperiksaan:</span>
+            <div class="flex flex-wrap gap-1.5">
+              <span class="px-2 py-0.5 text-xs bg-amber-50 text-amber-800 border border-amber-200 rounded-md font-medium">Kusuf (Matahari)</span>
+              <span class="px-2 py-0.5 text-xs bg-amber-50 text-amber-800 border border-amber-200 rounded-md font-medium">Khusuf (Bulan)</span>
+              <span class="px-2 py-0.5 text-xs bg-amber-50 text-amber-800 border border-amber-200 rounded-md font-medium">4 Rukuk & 4 Kali Bacaan</span>
+              <span class="px-2 py-0.5 text-xs bg-amber-50 text-amber-800 border border-amber-200 rounded-md font-medium">2 Khutbah</span>
+            </div>
+          </div>
+        </div>
+
+        <button onclick="openModal('modal-gerhana')" class="w-full mt-2 py-2.5 px-4 bg-emerald-50 hover:bg-emerald-700 text-emerald-800 hover:text-white font-semibold text-xs rounded-xl transition flex items-center justify-center gap-2">
+          <span>Buka Nota Penuh & Skema</span>
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+
+      <!-- TOPIC 8: SIRAH - IMAM SYAFIE -->
+      <div class="topic-card bg-white rounded-2xl p-6 border border-slate-200 hover:border-emerald-500 hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
+           data-category="sirah"
+           data-title="Tokoh: Imam Asy-Syafi'i r.a."
+           data-keywords="sirah tokoh imam syafie muhammad idris gaza mesir al-umm ar-risalah 150h 204h">
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <span class="px-2.5 py-1 text-xs font-bold rounded-lg bg-amber-100 text-amber-900 border border-amber-200">
+              Bhgn Sirah (Tokoh Mazhab)
+            </span>
+            <input type="checkbox" id="check-8" onchange="toggleMastered(8)" class="w-4 h-4 text-emerald-600 rounded border-gray-300 focus:ring-emerald-500 cursor-pointer">
+          </div>
+
+          <h3 class="text-xl font-bold text-slate-900 mb-2">Imam Asy-Syafi'i r.a.</h3>
+          <p class="text-sm text-slate-600 mb-4 line-clamp-2">
+            Mujaddid abad ke-2 Hijrah, pengasas mazhab Syafi'i, genius hafalan dan penulis kitab fiqh serta usul fiqh pertama.
+          </p>
+
+          <div class="mb-4">
+            <span class="text-xs font-semibold text-slate-500 block mb-1.5">Kata Kunci Peperiksaan:</span>
+            <div class="flex flex-wrap gap-1.5">
+              <span class="px-2 py-0.5 text-xs bg-amber-50 text-amber-800 border border-amber-200 rounded-md font-medium">Muhammad bin Idris</span>
+              <span class="px-2 py-0.5 text-xs bg-amber-50 text-amber-800 border border-amber-200 rounded-md font-medium">Lahir Gaza 150H / Wafat Mesir 204H</span>
+              <span class="px-2 py-0.5 text-xs bg-amber-50 text-amber-800 border border-amber-200 rounded-md font-medium">Kitab Al-Umm (Fiqh)</span>
+              <span class="px-2 py-0.5 text-xs bg-amber-50 text-amber-800 border border-amber-200 rounded-md font-medium">Kitab Ar-Risalah (Usul Fiqh)</span>
+            </div>
+          </div>
+        </div>
+
+        <button onclick="openModal('modal-syafie')" class="w-full mt-2 py-2.5 px-4 bg-emerald-50 hover:bg-emerald-700 text-emerald-800 hover:text-white font-semibold text-xs rounded-xl transition flex items-center justify-center gap-2">
+          <span>Buka Nota Penuh & Skema</span>
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+
+      <!-- TOPIC 9: SIRAH - KERAJAAN UMAIYYAH -->
+      <div class="topic-card bg-white rounded-2xl p-6 border border-slate-200 hover:border-emerald-500 hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
+           data-category="sirah"
+           data-title="Kerajaan Umaiyyah"
+           data-keywords="sirah kerajaan umaiyyah muawiyah damsyik 91 tahun abdul malik walid umar abdul aziz kejatuhan kegemilangan">
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <span class="px-2.5 py-1 text-xs font-bold rounded-lg bg-amber-100 text-amber-900 border border-amber-200">
+              Bhgn Sirah (Tamadun Islam)
+            </span>
+            <input type="checkbox" id="check-9" onchange="toggleMastered(9)" class="w-4 h-4 text-emerald-600 rounded border-gray-300 focus:ring-emerald-500 cursor-pointer">
+          </div>
+
+          <h3 class="text-xl font-bold text-slate-900 mb-2">Kerajaan Umaiyyah</h3>
+          <p class="text-sm text-slate-600 mb-4 line-clamp-2">
+            Khilafah Islam pertama selepas Khulafa' ar-Rasyidin, berpusat di Damsyik selama 91 tahun dengan pencapaian tamadun gemilang.
+          </p>
+
+          <div class="mb-4">
+            <span class="text-xs font-semibold text-slate-500 block mb-1.5">Kata Kunci Peperiksaan:</span>
+            <div class="flex flex-wrap gap-1.5">
+              <span class="px-2 py-0.5 text-xs bg-amber-50 text-amber-800 border border-amber-200 rounded-md font-medium">Muawiyah bin Abi Sufyan (41H)</span>
+              <span class="px-2 py-0.5 text-xs bg-amber-50 text-amber-800 border border-amber-200 rounded-md font-medium">Pusat: Damsyik (91 Tahun)</span>
+              <span class="px-2 py-0.5 text-xs bg-amber-50 text-amber-800 border border-amber-200 rounded-md font-medium">Umar bin Abdul Aziz</span>
+              <span class="px-2 py-0.5 text-xs bg-amber-50 text-amber-800 border border-amber-200 rounded-md font-medium">Mata Wang Dinar Islam</span>
+            </div>
+          </div>
+        </div>
+
+        <button onclick="openModal('modal-umaiyyah')" class="w-full mt-2 py-2.5 px-4 bg-emerald-50 hover:bg-emerald-700 text-emerald-800 hover:text-white font-semibold text-xs rounded-xl transition flex items-center justify-center gap-2">
+          <span>Buka Nota Penuh & Skema</span>
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+
+      <!-- TOPIC 10: ADAB - KHAUF DAN RAJA' & ADAB ORANG SAKIT -->
+      <div class="topic-card bg-white rounded-2xl p-6 border border-slate-200 hover:border-emerald-500 hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
+           data-category="adab"
+           data-title="Khauf & Raja' & Adab Orang Sakit"
+           data-keywords="adab khauf raja seimbang dua sayap burung orang sakit rohani jasmani emosi ziarah doa">
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <span class="px-2.5 py-1 text-xs font-bold rounded-lg bg-rose-100 text-rose-800 border border-rose-200">
+              Bhgn Adab Islamiah
+            </span>
+            <input type="checkbox" id="check-10" onchange="toggleMastered(10)" class="w-4 h-4 text-emerald-600 rounded border-gray-300 focus:ring-emerald-500 cursor-pointer">
+          </div>
+
+          <h3 class="text-xl font-bold text-slate-900 mb-2">Khauf & Raja' & Adab Orang Sakit</h3>
+          <p class="text-sm text-slate-600 mb-4 line-clamp-2">
+            Keseimbangan takut dan harap kepada Allah, serta panduan adab menziarahi orang sakit dari aspek rohani, jasmani, dan emosi.
+          </p>
+
+          <div class="mb-4">
+            <span class="text-xs font-semibold text-slate-500 block mb-1.5">Kata Kunci Peperiksaan:</span>
+            <div class="flex flex-wrap gap-1.5">
+              <span class="px-2 py-0.5 text-xs bg-amber-50 text-amber-800 border border-amber-200 rounded-md font-medium">Khauf (Takut Azab)</span>
+              <span class="px-2 py-0.5 text-xs bg-amber-50 text-amber-800 border border-amber-200 rounded-md font-medium">Raja' (Harap Rahmat)</span>
+              <span class="px-2 py-0.5 text-xs bg-amber-50 text-amber-800 border border-amber-200 rounded-md font-medium">Seimbang 2 Sayap Burung</span>
+              <span class="px-2 py-0.5 text-xs bg-amber-50 text-amber-800 border border-amber-200 rounded-md font-medium">3 Aspek: Rohani, Jasmani, Emosi</span>
+            </div>
+          </div>
+        </div>
+
+        <button onclick="openModal('modal-adab')" class="w-full mt-2 py-2.5 px-4 bg-emerald-50 hover:bg-emerald-700 text-emerald-800 hover:text-white font-semibold text-xs rounded-xl transition flex items-center justify-center gap-2">
+          <span>Buka Nota Penuh & Skema</span>
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= FLASHCARD DRILL SECTION ================= -->
+  <section id="flashcards" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
+    <div class="bg-gradient-to-r from-emerald-800 to-teal-800 rounded-3xl p-6 sm:p-10 text-white shadow-xl relative overflow-hidden">
+      <!-- Islamic Geometry Accent -->
+      <div class="absolute -right-10 -bottom-10 opacity-10 pointer-events-none">
+        <svg class="w-72 h-72 text-white" fill="currentColor" viewBox="0 0 100 100">
+          <polygon points="50,0 61,35 98,35 68,57 79,91 50,70 21,91 32,57 2,35 39,35" />
+        </svg>
+      </div>
+
+      <div class="flex flex-col md:flex-row items-center justify-between gap-6 mb-8">
+        <div>
+          <span class="px-3 py-1 text-xs font-bold rounded-full bg-amber-400 text-amber-950 uppercase tracking-wider">
+            Latihan Memori Pantas
+          </span>
+          <h2 class="text-2xl sm:text-3xl font-extrabold mt-2">Kad Imbasan Kata Kunci (Flashcards)</h2>
+          <p class="text-emerald-100 text-sm mt-1">Uji kecekapan ingatan anda sebelum masuk dewan peperiksaan. Klik kad untuk lihat jawapan!</p>
+        </div>
+        <div class="flex items-center gap-2 bg-emerald-900/60 px-4 py-2 rounded-2xl border border-emerald-600/40 text-sm">
+          <span id="fc-current" class="font-bold text-amber-300">1</span>
+          <span class="text-emerald-300">/</span>
+          <span id="fc-total">10</span>
+        </div>
+      </div>
+
+      <!-- Flashcard Interactive Area -->
+      <div class="max-w-2xl mx-auto">
+        <div 
+          id="flashcard" 
+          onclick="flipFlashcard()"
+          class="min-h-[220px] sm:min-h-[240px] bg-white text-slate-800 rounded-2xl p-8 flex flex-col justify-center items-center text-center cursor-pointer shadow-2xl transition-all duration-300 transform hover:scale-[1.01] border-4 border-amber-300/60 relative"
+        >
+          <span id="fc-badge" class="absolute top-4 left-4 px-2.5 py-0.5 text-xs font-bold rounded bg-emerald-100 text-emerald-800">
+            Kategori
+          </span>
+          <span class="absolute top-4 right-4 text-xs font-medium text-slate-400 flex items-center gap-1">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+            Klik untuk balikkan
+          </span>
+
+          <p id="fc-label" class="text-xs uppercase tracking-wider text-slate-400 font-bold mb-2">SOALAN / KATA KUNCI</p>
+          <h4 id="fc-content" class="text-lg sm:text-xl font-bold text-slate-900 leading-relaxed px-4">
+            Apakah maksud Al-Jabbar dan kesan beriman dengannya?
+          </h4>
+        </div>
+
+        <!-- Controls -->
+        <div class="flex items-center justify-between gap-4 mt-6">
+          <button onclick="prevFlashcard()" class="px-5 py-2.5 rounded-xl bg-emerald-700/70 hover:bg-emerald-600 text-white font-semibold text-sm transition flex items-center gap-2 border border-emerald-500/40">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+            Sebelumnya
+          </button>
+
+          <button onclick="flipFlashcard()" class="px-6 py-2.5 rounded-xl bg-amber-400 hover:bg-amber-300 text-amber-950 font-bold text-sm shadow-md transition">
+            Balikkan Kad 🔄
+          </button>
+
+          <button onclick="nextFlashcard()" class="px-5 py-2.5 rounded-xl bg-emerald-700/70 hover:bg-emerald-600 text-white font-semibold text-sm transition flex items-center gap-2 border border-emerald-500/40">
+            Seterusnya
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= INTERACTIVE QUIZ SECTION ================= -->
+  <section id="quiz" class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <div class="bg-white rounded-3xl p-6 sm:p-10 border border-slate-200 shadow-xl">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-6 mb-6">
+        <div>
+          <span class="px-3 py-1 text-xs font-bold rounded-full bg-emerald-100 text-emerald-800">
+            Ujian Simulasi
+          </span>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-2">Kuiz Pantas Kata Kunci SPM</h2>
+          <p class="text-sm text-slate-500 mt-1">Uji kefahaman anda terhadap 10 soalan kata kunci yang kerap ditanya dalam peperiksaan.</p>
+        </div>
+        <div class="bg-slate-50 px-4 py-2 rounded-2xl border border-slate-200 text-right">
+          <span class="text-xs text-slate-400 font-semibold block">SKOR SEMASA</span>
+          <span id="quizScoreDisplay" class="text-xl font-bold text-emerald-700">0 / 10</span>
+        </div>
+      </div>
+
+      <!-- Quiz Card Container -->
+      <div id="quizContainer">
+        <div class="flex items-center justify-between text-xs font-bold text-slate-400 mb-3">
+          <span id="quizQuestionNum">Soalan 1 daripada 10</span>
+          <span id="quizCategoryBadge" class="text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded">Tilawah</span>
+        </div>
+
+        <h3 id="quizQuestionText" class="text-lg sm:text-xl font-bold text-slate-900 mb-6 leading-relaxed">
+          Memuatkan soalan...
+        </h3>
+
+        <!-- Option Buttons Grid -->
+        <div id="quizOptions" class="grid grid-cols-1 gap-3 mb-6">
+          <!-- Dynamic JS options -->
+        </div>
+
+        <!-- Explanation box -->
+        <div id="quizExplanation" class="hidden p-4 rounded-xl bg-slate-50 border border-slate-200 mb-6 text-sm">
+          <div id="quizFeedbackTitle" class="font-bold mb-1"></div>
+          <div id="quizFeedbackBody" class="text-slate-600"></div>
+        </div>
+
+        <!-- Quiz Navigation Controls -->
+        <div class="flex items-center justify-between">
+          <button id="prevQuestionBtn" onclick="prevQuestion()" class="px-4 py-2 rounded-xl text-slate-500 hover:text-slate-800 text-sm font-semibold transition disabled:opacity-30" disabled>
+            ← Undur
+          </button>
+          <button id="nextQuestionBtn" onclick="nextQuestion()" class="px-6 py-2.5 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white text-sm font-bold shadow-md transition">
+            Soalan Seterusnya →
+          </button>
+        </div>
+      </div>
+
+      <!-- Quiz Completed View (Hidden by default) -->
+      <div id="quizResultView" class="hidden text-center py-10">
+        <div class="w-20 h-20 mx-auto rounded-full bg-emerald-100 flex items-center justify-center text-emerald-600 mb-4 shadow-inner">
+          <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        </div>
+        <h3 class="text-2xl font-bold text-slate-900 mb-2">Tahniah! Anda Selesai Menjawab</h3>
+        <p class="text-slate-600 mb-4">Keputusan peperiksaan simulasi anda:</p>
+        <div class="text-4xl font-extrabold text-emerald-700 mb-4" id="finalScoreDisplay">8 / 10</div>
+        <p id="finalFeedbackMessage" class="max-w-md mx-auto text-sm text-slate-600 mb-6 font-medium leading-relaxed"></p>
+        <button onclick="restartQuiz()" class="px-6 py-3 rounded-xl bg-emerald-800 text-white font-bold text-sm shadow-md hover:bg-emerald-700 transition">
+          Ulang Semula Kuiz 🔄
+        </button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= TEKNIK MENJAWAB KBAT SECTION ================= -->
+  <section id="kbat" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <div class="bg-gradient-to-br from-amber-50 to-orange-50 border border-amber-200 rounded-3xl p-6 sm:p-10">
+      <div class="max-w-3xl">
+        <span class="px-3 py-1 text-xs font-bold rounded-full bg-amber-200 text-amber-900">
+          Formula Skor A+ (4 Markah Penuh)
+        </span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-2 mb-4">
+          Teknik Menjawab Soalan KBAT Pendidikan Islam SPM
+        </h2>
+        <p class="text-slate-700 text-sm leading-relaxed mb-6">
+          Soalan KBAT biasanya bernilai 4 markah. Jangan berikan jawapan satu baris! Gunakan formula <strong>I + H + HL + K</strong> (Isi, Huraian, Huraian Lengkap, Kesimpulan).
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+        <div class="bg-white p-5 rounded-2xl border border-amber-200/80 shadow-sm">
+          <div class="w-8 h-8 rounded-lg bg-emerald-100 text-emerald-800 font-extrabold flex items-center justify-center mb-3">1</div>
+          <h4 class="font-bold text-slate-900 text-sm mb-1">Isi (Fakta Utama)</h4>
+          <p class="text-xs text-slate-600">Nyatakan isi jawapan secara tepat menjawab kata tugas soalan.</p>
+          <span class="inline-block mt-3 text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded">Markah: 1m</span>
+        </div>
+
+        <div class="bg-white p-5 rounded-2xl border border-amber-200/80 shadow-sm">
+          <div class="w-8 h-8 rounded-lg bg-emerald-100 text-emerald-800 font-extrabold flex items-center justify-center mb-3">2</div>
+          <h4 class="font-bold text-slate-900 text-sm mb-1">Huraian (Sebab/Cara)</h4>
+          <p class="text-xs text-slate-600">Gunakan kata hubung: <em>kerana, dengan cara, agar, supaya...</em></p>
+          <span class="inline-block mt-3 text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded">Markah: 1m</span>
+        </div>
+
+        <div class="bg-white p-5 rounded-2xl border border-amber-200/80 shadow-sm">
+          <div class="w-8 h-8 rounded-lg bg-emerald-100 text-emerald-800 font-extrabold flex items-center justify-center mb-3">3</div>
+          <h4 class="font-bold text-slate-900 text-sm mb-1">Huraian Lengkap</h4>
+          <p class="text-xs text-slate-600">Jelaskan kesan atau contoh: <em>kesannya, contohnya, hal ini menyebabkan...</em></p>
+          <span class="inline-block mt-3 text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded">Markah: 1m</span>
+        </div>
+
+        <div class="bg-white p-5 rounded-2xl border border-amber-200/80 shadow-sm">
+          <div class="w-8 h-8 rounded-lg bg-emerald-100 text-emerald-800 font-extrabold flex items-center justify-center mb-3">4</div>
+          <h4 class="font-bold text-slate-900 text-sm mb-1">Kesimpulan</h4>
+          <p class="text-xs text-slate-600">Cadangan penutup: <em>Kesimpulannya, kita hendaklah... agar...</em></p>
+          <span class="inline-block mt-3 text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded">Markah: 1m</span>
+        </div>
+      </div>
+
+      <!-- Real Example Box -->
+      <div class="bg-white rounded-2xl p-6 border border-amber-200 shadow-sm">
+        <div class="flex items-center gap-2 text-xs font-bold text-amber-800 uppercase tracking-wider mb-2">
+          <span>Contoh Soalan Sebenar: Tajuk Ajaran Sesat</span>
+        </div>
+        <p class="text-sm font-bold text-slate-900 mb-3">
+          "Penyebaran ajaran sesat semakin berleluasa melalui media sosial. Huraikan peranan anda sebagai remaja untuk membendung gejala ini daripada merosakkan akidah rakan sebaya." (4 Markah)
+        </p>
+        <div class="p-4 rounded-xl bg-slate-50 border-l-4 border-emerald-600 text-xs sm:text-sm text-slate-700 space-y-2">
+          <p><strong>[Isi]:</strong> Saya akan menasihati rakan agar menyemak kesahihan maklumat agama melalui sumber rasmi seperti mufti atau Jabatan Agama Islam (1m).</p>
+          <p><strong>[Huraian]:</strong> Hal ini kerana golongan ajaran sesat kerap memanipulasi dalil untuk mengelirukan golongan muda yang kurang ilmu (1m).</p>
+          <p><strong>[Huraian Lengkap]:</strong> Kesannya, rakan-rakan tidak mudah terpengaruh dengan ajaran menyimpang seperti mendakwa menerima wahyu atau meminda ibadat (1m).</p>
+          <p><strong>[Kesimpulan]:</strong> Kesimpulannya, kita hendaklah sentiasa mendalami ilmu agama daripada guru yang bertauliah agar akidah Islam terpelihara sepanjang masa (1m).</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= MODALS DETAIL NOTA PENUH (DEEP DIVE) ================= -->
+  <!-- MODAL CONTAINER (Populated dynamically or static) -->
+  <div id="modalOverlay" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4 overflow-y-auto">
+    <div id="modalCard" class="bg-white rounded-3xl max-w-3xl w-full max-h-[90vh] overflow-y-auto shadow-2xl border border-slate-200 p-6 sm:p-8 transform transition-all duration-300">
+      <div class="flex items-start justify-between border-b border-slate-100 pb-4 mb-6">
+        <div>
+          <span id="modalCategory" class="px-2.5 py-1 text-xs font-bold rounded-lg bg-emerald-100 text-emerald-800">Kategori</span>
+          <h3 id="modalTitle" class="text-2xl font-bold text-slate-900 mt-2">Tajuk Nota</h3>
+        </div>
+        <button onclick="closeModal()" class="p-2 rounded-xl text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <div id="modalBody" class="text-sm text-slate-700 leading-relaxed space-y-6">
+        <!-- Content injected via JS -->
+      </div>
+
+      <div class="border-t border-slate-100 pt-5 mt-6 flex justify-end gap-3">
+        <button onclick="closeModal()" class="px-5 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-xs transition">Tutup</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="mt-auto bg-slate-900 text-slate-400 border-t border-slate-800 py-12 text-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 rounded-lg bg-emerald-800 flex items-center justify-center text-amber-400 font-bold">
+            eK
+          </div>
+          <div>
+            <p class="font-bold text-white">e-Kalam Pendidikan Islam Tingkatan 4</p>
+            <p class="text-xs text-slate-500">Panduan Silibus & Ulang Kaji Peperiksaan KSSM</p>
+          </div>
+        </div>
+        <div class="text-xs text-slate-500 text-center md:text-right">
+          <p>Disusun khas untuk kemudahan murid menguasai kata kunci peperiksaan.</p>
+          <p class="mt-1 text-slate-600">Siap sedia untuk dideploy ke Render Static Sites.</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ================= JAVASCRIPT LOGIC ================= -->
+  <script>
+    // --- 1. MODAL DETAILED DATA ---
+    const topicDetails = {
+      'modal-tilawah': {
+        category: 'Bhgn Tilawah Al-Quran (Surah Al-An\'am: 70)',
+        title: 'Larangan Mempersendakan Agama',
+        html: `
+          <div class="bg-emerald-50 border border-emerald-200 p-4 rounded-xl mb-4">
+            <h4 class="font-bold text-emerald-900 mb-1">Maksud Ayat 70 Surah Al-An'am:</h4>
+            <p class="text-slate-700 text-xs sm:text-sm">"Dan tinggalkanlah orang-orang yang menjadikan agama mereka sebagai main-main dan senda gurau, dan mereka telah ditipu oleh kehidupan dunia..."</p>
+          </div>
+
+          <div>
+            <h4 class="font-bold text-slate-900 mb-2 flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-emerald-600"></span> Bentuk Perbuatan Mempersendakan Agama:
+            </h4>
+            <ul class="list-disc pl-5 space-y-1.5 text-xs sm:text-sm text-slate-600">
+              <li><strong>Menghina hukum syarak:</strong> Meremehkan kewajipan solat, puasa, menutup aurat, atau hukum hudud/jenayah Islam.</li>
+              <li><strong>Mempersenda al-Quran & Sunnah:</strong> Menjadikan ayat suci al-Quran atau hadis nabi sebagai bahan lawak jenaka.</li>
+              <li><strong>Melakukan maksiat secara terbuka:</strong> Berbangga menunjuk-nunjuk maksiat di media sosial.</li>
+              <li><strong>Mentafsir agama ikut logik akal/nafsu:</strong> Menolak pandangan ijmak ulama muktabar.</li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 class="font-bold text-slate-900 mb-2 flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-rose-600"></span> Kesan Mempersendakan Agama (Fokus Soalan Peperiksaan):
+            </h4>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs sm:text-sm">
+              <div class="p-3 rounded-lg bg-rose-50 border border-rose-200">
+                <span class="font-bold text-rose-900 block">Individu:</span>
+                Batal iman / rosak akidah, dilaknat Allah SWT, dan diseksa dengan minuman air panas menggelegak di neraka.
+              </div>
+              <div class="p-3 rounded-lg bg-rose-50 border border-rose-200">
+                <span class="font-bold text-rose-900 block">Masyarakat:</span>
+                Hilang keberkatan hidup, menimbulkan permusuhan, dan meruntuhkan maruah umat Islam.
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <h4 class="font-bold text-slate-900 mb-2 flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-emerald-600"></span> Cara Menghindari (Tindakan Muslim):
+            </h4>
+            <p class="text-xs sm:text-sm text-slate-600">
+              Menjauhi majlis orang fasik yang mempersenda agama, mengingkari perbuatan mungkar dengan lisan atau hati, serta mendalami ilmu agama dengan guru mursyid.
+            </p>
+          </div>
+        `
+      },
+      'modal-hadis': {
+        category: 'Bhgn Hadis (Al-Mubiqaat)',
+        title: '7 Dosa Besar Yang Mesti Dijauhi',
+        html: `
+          <div class="bg-teal-50 border border-teal-200 p-4 rounded-xl mb-4">
+            <h4 class="font-bold text-teal-900 mb-1">Sabda Nabi SAW (Riwayat Bukhari & Muslim):</h4>
+            <p class="text-slate-700 text-xs sm:text-sm italic">"Jauhilah tujuh perkara yang membinasakan (Al-Mubiqaat)..."</p>
+          </div>
+
+          <div class="space-y-3">
+            <h4 class="font-bold text-slate-900 mb-2">Senarai 7 Dosa Besar & Kata Kunci:</h4>
+            
+            <div class="p-3 bg-slate-50 rounded-xl border border-slate-200 text-xs sm:text-sm">
+              <span class="font-bold text-emerald-800">1. Syirik Kepada Allah:</span>
+              <p class="text-slate-600 mt-0.5">Menyekutukan Allah. Terbahagi kepada <em>Syirik Jali</em> (nyata seperti sembah berhala) dan <em>Syirik Khafi</em> (tersembunyi seperti riyak & ujub).</p>
+            </div>
+
+            <div class="p-3 bg-slate-50 rounded-xl border border-slate-200 text-xs sm:text-sm">
+              <span class="font-bold text-emerald-800">2. Melakukan Sihir:</span>
+              <p class="text-slate-600 mt-0.5">Perbuatan memudharatkan orang lain dengan bantuan jin dan syaitan.</p>
+            </div>
+
+            <div class="p-3 bg-slate-50 rounded-xl border border-slate-200 text-xs sm:text-sm">
+              <span class="font-bold text-emerald-800">3. Membunuh Jiwa Tanpa Hak:</span>
+              <p class="text-slate-600 mt-0.5">Meragut nyawa manusia yang diharamkan Allah membunuhnya tanpa sebab syarak.</p>
+            </div>
+
+            <div class="p-3 bg-slate-50 rounded-xl border border-slate-200 text-xs sm:text-sm">
+              <span class="font-bold text-emerald-800">4. Memakan Riba:</span>
+              <p class="text-slate-600 mt-0.5">Faedah atau pertambahan yang disyaratkan dalam urusan pinjaman atau pertukaran barangan ribawi. Menindas golongan susah.</p>
+            </div>
+
+            <div class="p-3 bg-slate-50 rounded-xl border border-slate-200 text-xs sm:text-sm">
+              <span class="font-bold text-emerald-800">5. Memakan Harta Anak Yatim Secara Zalim:</span>
+              <p class="text-slate-600 mt-0.5">Menggunakan harta anak yang kematian bapa sebelum baligh untuk kepentingan diri sendiri.</p>
+            </div>
+
+            <div class="p-3 bg-slate-50 rounded-xl border border-slate-200 text-xs sm:text-sm">
+              <span class="font-bold text-emerald-800">6. Lari Dari Medan Perang:</span>
+              <p class="text-slate-600 mt-0.5">Meninggalkan barisan jihad mempertahankan agama dan negara daripada ancaman musuh.</p>
+            </div>
+
+            <div class="p-3 bg-slate-50 rounded-xl border border-slate-200 text-xs sm:text-sm">
+              <span class="font-bold text-emerald-800">7. Qazaf (Menuduh Wanita Mukmin Berzina):</span>
+              <p class="text-slate-600 mt-0.5">Menuduh perempuan suci melakukan zina tanpa membawa 4 orang saksi lelaki yang adil. Menjatuhkan maruah dan nasab.</p>
+            </div>
+          </div>
+        `
+      },
+      'modal-tajwid': {
+        category: 'Hukum Tajwid',
+        title: 'Mad Lazim: Pembahagian, Formula & Contoh',
+        html: `
+          <div class="bg-purple-50 border border-purple-200 p-4 rounded-xl mb-4">
+            <h4 class="font-bold text-purple-900 mb-1">Kadar Harakat: 6 Harakat (Wajib & Lazim)</h4>
+            <p class="text-slate-700 text-xs sm:text-sm">Mad Lazim berlaku apabila huruf mad bertemu dengan sukun asli. Terbahagi kepada dua cabang utama: <strong>Kalimi</strong> dan <strong>Harfi</strong>.</p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs sm:text-sm">
+            <div class="p-4 bg-slate-50 rounded-xl border border-slate-200">
+              <span class="font-bold text-purple-900 block mb-1">1. Mad Lazim Kalimi Muthaqqal</span>
+              <p class="text-slate-600 mb-2">Huruf mad bertemu huruf bertasydid (sabdu) dalam satu kalimah. Dibaca berat 6 harakat.</p>
+              <div class="bg-white p-2 rounded border border-slate-200 font-bold text-emerald-800 arabic-text text-lg text-right">
+                الضَّآلِّينَ / الحَآقَّةُ
+              </div>
+            </div>
+
+            <div class="p-4 bg-slate-50 rounded-xl border border-slate-200">
+              <span class="font-bold text-purple-900 block mb-1">2. Mad Lazim Kalimi Mukhaffaf</span>
+              <p class="text-slate-600 mb-2">Huruf mad bertemu huruf bertanda sukun asli (tanpa sabdu) dalam satu perkataan. Dibaca ringan 6 harakat.</p>
+              <div class="bg-white p-2 rounded border border-slate-200 font-bold text-emerald-800 arabic-text text-lg text-right">
+                ءَآلْـَٰٔنَ (Surah Yunus)
+              </div>
+            </div>
+
+            <div class="p-4 bg-slate-50 rounded-xl border border-slate-200">
+              <span class="font-bold text-purple-900 block mb-1">3. Mad Lazim Harfi Muthaqqal</span>
+              <p class="text-slate-600 mb-2">Berlaku pada huruf fawatih as-suwar (awal surah) di mana sukunnya diidghamkan (ada dengung/sabdu).</p>
+              <div class="bg-white p-2 rounded border border-slate-200 font-bold text-emerald-800 arabic-text text-lg text-right">
+                الٓمّٓ (Sebutan Lam ke Mim)
+              </div>
+            </div>
+
+            <div class="p-4 bg-slate-50 rounded-xl border border-slate-200">
+              <span class="font-bold text-purple-900 block mb-1">4. Mad Lazim Harfi Mukhaffaf</span>
+              <p class="text-slate-600 mb-2">Berlaku pada huruf awal surah tanpa idgham (tidak berdengung). Dibaca 6 harakat.</p>
+              <div class="bg-white p-2 rounded border border-slate-200 font-bold text-emerald-800 arabic-text text-lg text-right">
+                قٓ / نٓ / صٓ / الٓر
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-4 p-3 bg-amber-50 border border-amber-200 rounded-xl text-xs sm:text-sm">
+            <span class="font-bold text-amber-900">💡 Formula Huruf Mad Harfi:</span>
+            <p class="text-slate-700 mt-1 font-medium">Terdapat 8 huruf dalam rangkai kata: <span class="arabic-text font-bold text-base text-emerald-800">نَقَصَ عَسَلُكُمْ</span> (Nun, Qaf, Sad, 'Ain, Sin, Lam, Kaf, Mim).</p>
+          </div>
+        `
+      },
+      'modal-aljabbar': {
+        category: 'Bhgn Akidah (Asmaul Husna)',
+        title: 'Al-Jabbar (Maha Berkuasa Memaksa)',
+        html: `
+          <div class="bg-sky-50 border border-sky-200 p-4 rounded-xl mb-4">
+            <h4 class="font-bold text-sky-900 mb-1">Pengertian Al-Jabbar:</h4>
+            <p class="text-slate-700 text-xs sm:text-sm">Allah SWT Maha Berkuasa Memaksa sekalian makhluk menurut kehendak-Nya yang mutlak, dan tiada sesiapa pun mampu menghalang atau menolak ketetapan-Nya. Dia juga Maha Memperbaiki kerosakan makhluk-Nya.</p>
+          </div>
+
+          <div class="space-y-4 text-xs sm:text-sm">
+            <div>
+              <h4 class="font-bold text-slate-900 mb-1">Dalil Naqli:</h4>
+              <p class="text-slate-600 arabic-text text-right text-base font-bold text-emerald-800">
+                ...هُوَ ٱللَّهُ ٱلَّذِى لَآ إِلَٰهَ إِلَّا هُوَ ٱلْمَلِكُ ٱلْقُدُّوسُ ٱلسَّلَٰمُ ٱلْمُؤْمِنُ ٱلْمُهَيْمِنُ ٱلْعَزِيزُ ٱلْجَبَّارُ...
+              </p>
+              <p class="text-slate-500 italic mt-1">(Surah Al-Hasyr: 23)</p>
+            </div>
+
+            <div>
+              <h4 class="font-bold text-slate-900 mb-2">Kesan & Bukti Beriman dengan Al-Jabbar:</h4>
+              <ul class="list-disc pl-5 space-y-1.5 text-slate-600">
+                <li><strong>Tunduk & patuh:</strong> Melaksanakan segala suruhan Allah dan meninggalkan larangan-Nya tanpa bantahan.</li>
+                <li><strong>Menjauhi sifat takabbur (sombong):</strong> Mengakui kerdilnya diri manusia di hadapan keagungan Allah SWT.</li>
+                <li><strong>Reda terhadap takdir:</strong> Sabar apabila diuji kerana yakin ada hikmah di sebalik segala perancangan Ilahi.</li>
+                <li><strong>Memohon pertolongan hanya kepada Allah:</strong> Yakin bahawa hanya Allah yang mampu memperbaiki kesukaran dan merawat kelukaan hati.</li>
+              </ul>
+            </div>
+          </div>
+        `
+      },
+      'modal-ajaransesat': {
+        category: 'Bhgn Akidah (Penyimpangan)',
+        title: 'Ajaran Sesat: Ciri-ciri, Kesan & Cara Membendung',
+        html: `
+          <div class="bg-rose-50 border border-rose-200 p-4 rounded-xl mb-4">
+            <h4 class="font-bold text-rose-900 mb-1">Maksud Ajaran Sesat:</h4>
+            <p class="text-slate-700 text-xs sm:text-sm">Ajaran atau amalan yang dibawa oleh orang Islam atau bukan Islam yang mendakwa sebagai ajaran Islam sedangkan hakikatnya bercanggah dengan al-Quran, Sunnah, dan prinsip Ahli Sunnah Wal Jamaah.</p>
+          </div>
+
+          <div class="space-y-4 text-xs sm:text-sm">
+            <div>
+              <h4 class="font-bold text-slate-900 mb-2">Ciri-Ciri Ajaran Sesat (Kata Kunci Peperiksaan):</h4>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div class="p-3 bg-slate-50 rounded-lg border border-slate-200">
+                  <span class="font-bold text-rose-800">1. Dari Aspek Akidah:</span>
+                  <p class="text-slate-600 mt-1">Mengaku diri sebagai nabi, rasul, Imam Mahdi, atau jelmaan tuhan. Mendakwa menerima wahyu baru.</p>
+                </div>
+                <div class="p-3 bg-slate-50 rounded-lg border border-slate-200">
+                  <span class="font-bold text-rose-800">2. Dari Aspek Ibadah:</span>
+                  <p class="text-slate-600 mt-1">Mengubah cara solat (contoh: solat dengan niat sahaja tanpa rukun fi'li), menolak fardhu haji, menghapuskan solat Jumaat.</p>
+                </div>
+                <div class="p-3 bg-slate-50 rounded-lg border border-slate-200">
+                  <span class="font-bold text-rose-800">3. Dari Aspek Akhlak/Syariat:</span>
+                  <p class="text-slate-600 mt-1">Menghalalkan perkara haram seperti nikah batin, pergaulan bebas lelaki perempuan, dan penyerahan harta kepada ketua.</p>
+                </div>
+                <div class="p-3 bg-slate-50 rounded-lg border border-slate-200">
+                  <span class="font-bold text-rose-800">4. Taksub Melampau:</span>
+                  <p class="text-slate-600 mt-1">Mentafsir al-Quran sesuka hati dan menganggap hanya kumpulan mereka yang masuk syurga manakala yang lain kafir.</p>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <h4 class="font-bold text-slate-900 mb-2">Cara Membendung & Menjauhi:</h4>
+              <ul class="list-disc pl-5 space-y-1 text-slate-600">
+                <li>Mendalami ilmu tauhid dan syariat berpandukan manhaj Ahli Sunnah Wal Jamaah.</li>
+                <li>Menyemak latar belakang guru dan tauliah mengajar daripada Jabatan Agama Islam Negeri (MAIN/JAIS).</li>
+                <li>Melaporkan aktiviti ajaran mencurigakan kepada pihak berkuasa agama.</li>
+              </ul>
+            </div>
+          </div>
+        `
+      },
+      'modal-muamalat': {
+        category: 'Bhgn Ibadah (Muamalat)',
+        title: 'Muamalat Islam: Konsep, Prinsip & Jenis Akad',
+        html: `
+          <div class="bg-indigo-50 border border-indigo-200 p-4 rounded-xl mb-4">
+            <h4 class="font-bold text-indigo-900 mb-1">Matlamat Muamalat Islam:</h4>
+            <p class="text-slate-700 text-xs sm:text-sm">Menjamin keadilan dalam pemilikan harta, mencegah penindasan sesama manusia, serta mewujudkan hubungan ekonomi yang harmoni berasaskan reda-meredai.</p>
+          </div>
+
+          <div class="space-y-4 text-xs sm:text-sm">
+            <div>
+              <h4 class="font-bold text-slate-900 mb-2">Unsur Haram Yang Dilarang Keras:</h4>
+              <div class="flex flex-wrap gap-2">
+                <span class="px-3 py-1 bg-red-100 text-red-800 rounded-lg font-bold">Riba (Pertambahan faedah)</span>
+                <span class="px-3 py-1 bg-red-100 text-red-800 rounded-lg font-bold">Gharar (Ketidakpastian/samar)</span>
+                <span class="px-3 py-1 bg-red-100 text-red-800 rounded-lg font-bold">Maisir (Perjudian)</span>
+                <span class="px-3 py-1 bg-red-100 text-red-800 rounded-lg font-bold">Dharar (Kemudharatan)</span>
+              </div>
+            </div>
+
+            <div>
+              <h4 class="font-bold text-slate-900 mb-2">Jenis Akad Muamalat (Wajib Hafal Untuk Padanan):</h4>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div class="p-3 bg-slate-50 rounded-lg border border-slate-200">
+                  <span class="font-bold text-emerald-800">Al-Bai' (Jual Beli):</span>
+                  <p class="text-slate-600 mt-0.5">Pertukaran harta dengan harta atas persetujuan bersama secara sah.</p>
+                </div>
+                <div class="p-3 bg-slate-50 rounded-lg border border-slate-200">
+                  <span class="font-bold text-emerald-800">Al-Ijarah (Sewaan):</span>
+                  <p class="text-slate-600 mt-0.5">Akad mengambil manfaat daripada sesuatu benda atau perkhidmatan dengan bayaran sewa.</p>
+                </div>
+                <div class="p-3 bg-slate-50 rounded-lg border border-slate-200">
+                  <span class="font-bold text-emerald-800">Ar-Rahnu (Gadaian):</span>
+                  <p class="text-slate-600 mt-0.5">Menjadikan sesuatu barang berharga sebagai cagaran bagi hutang jika hutang tidak dapat dibayar.</p>
+                </div>
+                <div class="p-3 bg-slate-50 rounded-lg border border-slate-200">
+                  <span class="font-bold text-emerald-800">Al-Mudharabah (Pelaburan):</span>
+                  <p class="text-slate-600 mt-0.5">Akad perkongsian antara pemilik modal dengan pengusaha untuk menguruskan perniagaan.</p>
+                </div>
+                <div class="p-3 bg-slate-50 rounded-lg border border-slate-200">
+                  <span class="font-bold text-emerald-800">Al-Musyarakah (Perkongsian):</span>
+                  <p class="text-slate-600 mt-0.5">Akad penggabungan modal antara dua pihak atau lebih bagi satu perniagaan, untung rugi dikongsi.</p>
+                </div>
+                <div class="p-3 bg-slate-50 rounded-lg border border-slate-200">
+                  <span class="font-bold text-emerald-800">Al-Wadiah (Simpanan):</span>
+                  <p class="text-slate-600 mt-0.5">Menyerahkan harta kepada pihak lain untuk disimpan dan dipelihara dengan amanah.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        `
+      },
+      'modal-gerhana': {
+        category: 'Bhgn Ibadah (Solat Sunat)',
+        title: 'Solat Sunat Gerhana (Kusuf & Khusuf)',
+        html: `
+          <div class="bg-indigo-50 border border-indigo-200 p-4 rounded-xl mb-4">
+            <h4 class="font-bold text-indigo-900 mb-1">Maksud & Hukum:</h4>
+            <p class="text-slate-700 text-xs sm:text-sm"><strong>Hukum:</strong> Sunat Muakkad (Sangat dituntut). Dilakukan ketika berlakunya gerhana matahari (Kusuf) atau gerhana bulan (Khusuf).</p>
+          </div>
+
+          <div class="space-y-4 text-xs sm:text-sm">
+            <div>
+              <h4 class="font-bold text-slate-900 mb-2">Kaifiat (Tatacara) Solat Gerhana (Sangat Kerap Ditanya):</h4>
+              <div class="p-4 bg-slate-50 rounded-xl border border-slate-200">
+                <ol class="list-decimal pl-5 space-y-2 text-slate-700">
+                  <li><strong>Bilangan Rakaat:</strong> 2 Rakaat.</li>
+                  <li><strong>Ciri Khas Rukuk & Berdiri:</strong> Setiap rakaat mempunyai <strong>2 kali rukuk dan 2 kali berdiri/qiam</strong> membaca surah. (Jumlah: 4 rukuk dan 4 qiam dalam 2 rakaat).</li>
+                  <li><strong>Khutbah:</strong> Disunatkan membaca <strong>2 khutbah</strong> selepas selesai solat (seperti khutbah hari raya) untuk memberi peringatan dan taubat.</li>
+                  <li><strong>Amalan Tambahan Disunatkan:</strong> Memperbanyakkan istighfar, sedekah, doa, dan takbir.</li>
+                </ol>
+              </div>
+            </div>
+
+            <div>
+              <h4 class="font-bold text-slate-900 mb-2">Hikmah Pensyariatan:</h4>
+              <p class="text-slate-600">
+                Menzahirkan rasa takut dan insaf terhadap tanda-tanda kebesaran Allah SWT serta menepis kepercayaan khurafat jahiliah kononnya gerhana terjadi kerana kematian atau kelahiran seseorang tokoh.
+              </p>
+            </div>
+          </div>
+        `
+      },
+      'modal-syafie': {
+        category: 'Bhgn Sirah (Tokoh Islam)',
+        title: 'Riwayat Hidup & Sumbangan Imam Asy-Syafi\'i r.a.',
+        html: `
+          <div class="bg-amber-50 border border-amber-200 p-4 rounded-xl mb-4">
+            <h4 class="font-bold text-amber-900 mb-1">Biodata Tokoh:</h4>
+            <p class="text-slate-700 text-xs sm:text-sm"><strong>Nama Penuh:</strong> Muhammad bin Idris bin Al-Abbas bin Uthman bin Syafi'. Nasab bertemu dengan Rasulullah SAW pada datuknya Abd Manaf.</p>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs sm:text-sm">
+            <div class="p-3 bg-slate-50 rounded-lg border border-slate-200">
+              <span class="font-bold text-emerald-800">Kelahiran:</span>
+              <p class="text-slate-600 mt-1">Lahir di <strong>Gaza, Palestin</strong> pada tahun <strong>150 Hijrah</strong> (tahun wafatnya Imam Abu Hanifah).</p>
+            </div>
+            <div class="p-3 bg-slate-50 rounded-lg border border-slate-200">
+              <span class="font-bold text-emerald-800">Kewafatan:</span>
+              <p class="text-slate-600 mt-1">Wafat di <strong>Mesir</strong> pada malam Jumaat, tahun <strong>204 Hijrah</strong> (umur 54 tahun).</p>
+            </div>
+            <div class="p-3 bg-slate-50 rounded-lg border border-slate-200">
+              <span class="font-bold text-emerald-800">Kehebatan Ilmu:</span>
+              <p class="text-slate-600 mt-1">Hafal al-Quran usia <strong>7 tahun</strong>, hafal kitab <em>Al-Muwatta'</em> usia <strong>10 tahun</strong>, diberi tauliah berfatwa usia belasan tahun oleh Imam Muslim bin Khalid Az-Zanji.</p>
+            </div>
+            <div class="p-3 bg-slate-50 rounded-lg border border-slate-200">
+              <span class="font-bold text-emerald-800">Karya Teragung:</span>
+              <p class="text-slate-600 mt-1"><strong>Kitab Al-Umm</strong> (Rujukan utama Fiqh Mazhab Syafi'i) & <strong>Kitab Ar-Risalah</strong> (Kitab Usul Fiqh pertama di dunia).</p>
+            </div>
+          </div>
+
+          <div class="mt-4">
+            <h4 class="font-bold text-slate-900 mb-1">Iktibar & Pengajaran:</h4>
+            <p class="text-xs sm:text-sm text-slate-600">
+              Kita hendaklah gigih menuntut ilmu sejak kecil, menghormati guru, menguasai ilmu al-Quran, serta beradab ketika berbeza pendapat dalam masalah hukum.
+            </p>
+          </div>
+        `
+      },
+      'modal-umaiyyah': {
+        category: 'Bhgn Sirah (Tamadun Islam)',
+        title: 'Kerajaan Umaiyyah: Penubuhan, Khalifah & Iktibar',
+        html: `
+          <div class="bg-amber-50 border border-amber-200 p-4 rounded-xl mb-4">
+            <h4 class="font-bold text-amber-900 mb-1">Fakta Asas Kerajaan Umaiyyah:</h4>
+            <p class="text-slate-700 text-xs sm:text-sm">Diasaskan oleh <strong>Muawiyah bin Abi Sufyan</strong> pada tahun <strong>41 Hijrah (661 Masihi)</strong> selepas peristiwa penyerahan kuasa oleh Saidina Hasan bin Ali. Berpusat di <strong>Damsyik, Syria</strong> dan memerintah selama <strong>91 tahun</strong> (41H - 132H).</p>
+          </div>
+
+          <div class="space-y-4 text-xs sm:text-sm">
+            <div>
+              <h4 class="font-bold text-slate-900 mb-2">4 Khalifah Terkenal & Sumbangannya:</h4>
+              <div class="space-y-2">
+                <div class="p-2.5 bg-slate-50 rounded-lg border border-slate-200">
+                  <strong>1. Muawiyah bin Abi Sufyan (Pengasas):</strong> Memperkemas angkatan tentera laut, menubuhkan Diwanul Barid (pos) dan Diwanul Jund.
+                </div>
+                <div class="p-2.5 bg-slate-50 rounded-lg border border-slate-200">
+                  <strong>2. Abdul Malik bin Marwan:</strong> Menjadikan Bahasa Arab bahasa rasmi pentadbiran, mencetak mata wang dinar Islam pertama, dan membina Masjid Qubbah as-Sakhrah.
+                </div>
+                <div class="p-2.5 bg-slate-50 rounded-lg border border-slate-200">
+                  <strong>3. Al-Walid bin Abdul Malik:</strong> Zaman kegemilangan perluasan wilayah (Andalusia & India), membina Masjid Umawi di Damsyik dan institusi kebajikan pesakit.
+                </div>
+                <div class="p-2.5 bg-slate-50 rounded-lg border border-slate-200">
+                  <strong>4. Umar bin Abdul Aziz:</strong> Zaman keadilan sosial yang gemilang, menghapuskan kezaliman cukai, mengembalikan harta Baitulmal, dan memulakan pembukuan hadis secara rasmi.
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <h4 class="font-bold text-slate-900 mb-1">Faktor Kemerosotan / Kejatuhan:</h4>
+              <p class="text-slate-600">
+                Perebutan takhta dan perbalahan keluarga diraja, kelemahan pemimpin akhir yang hidup bermewah-mewah, serta kebangkitan gerakan revolusi Bani Abbasiyyah.
+              </p>
+            </div>
+          </div>
+        `
+      },
+      'modal-adab': {
+        category: 'Bhgn Adab Islamiah',
+        title: 'Khauf & Raja\' Serta Adab Terhadap Orang Sakit',
+        html: `
+          <div class="bg-rose-50 border border-rose-200 p-4 rounded-xl mb-4">
+            <h4 class="font-bold text-rose-900 mb-1">Konsep Khauf & Raja' (Mizan / Keseimbangan):</h4>
+            <p class="text-slate-700 text-xs sm:text-sm"><strong>Khauf:</strong> Takut kepada azab Allah SWT dengan meninggalkan maksiat. <br><strong>Raja':</strong> Mengharap keredaan & rahmat Allah dengan melakukan amal kebajikan.</p>
+            <p class="text-slate-600 text-xs mt-1 italic">Ibarat dua sayap burung: Jika hanya ada Khauf, akan putus asa. Jika hanya ada Raja', akan lalai dan berani berbuat dosa. Mesti seimbang!</p>
+          </div>
+
+          <div>
+            <h4 class="font-bold text-slate-900 mb-2">Adab Menziarahi Orang Sakit (3 Aspek Utama):</h4>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs sm:text-sm">
+              <div class="p-3 bg-slate-50 rounded-lg border border-slate-200">
+                <span class="font-bold text-emerald-800 block mb-1">1. Aspek Rohani:</span>
+                <ul class="list-disc pl-4 space-y-1 text-slate-600">
+                  <li>Mengingatkan pesakit solat dan rukhsah (tayamum/jamak).</li>
+                  <li>Mendoakan kesembuhan.</li>
+                  <li>Mentalqinkan syahadah jika nazak.</li>
+                </ul>
+              </div>
+
+              <div class="p-3 bg-slate-50 rounded-lg border border-slate-200">
+                <span class="font-bold text-emerald-800 block mb-1">2. Aspek Jasmani:</span>
+                <ul class="list-disc pl-4 space-y-1 text-slate-600">
+                  <li>Membawa buah tangan sesuai.</li>
+                  <li>Membantu urusan rawatan atau ubat.</li>
+                  <li>Menjaga kebersihan dan keselesaan bilik pesakit.</li>
+                </ul>
+              </div>
+
+              <div class="p-3 bg-slate-50 rounded-lg border border-slate-200">
+                <span class="font-bold text-emerald-800 block mb-1">3. Aspek Emosi:</span>
+                <ul class="list-disc pl-4 space-y-1 text-slate-600">
+                  <li>Bercakap perkataan manis dan beri semangat.</li>
+                  <li>Tidak bercakap perkara yang membimbangkan pesakit.</li>
+                  <li>Memendekkan waktu ziarah agar pesakit boleh berehat.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        `
+      }
+    };
+
+    function openModal(topicKey) {
+      const data = topicDetails[topicKey];
+      if (!data) return;
+      document.getElementById('modalCategory').innerText = data.category;
+      document.getElementById('modalTitle').innerText = data.title;
+      document.getElementById('modalBody').innerHTML = data.html;
+      document.getElementById('modalOverlay').classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      document.getElementById('modalOverlay').classList.add('hidden');
+      document.body.style.overflow = 'auto';
+    }
+
+    // Close modal on escape key
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeModal();
+    });
+
+    // Close on overlay click
+    document.getElementById('modalOverlay').addEventListener('click', (e) => {
+      if (e.target === document.getElementById('modalOverlay')) closeModal();
+    });
+
+
+    // --- 2. SEARCH & FILTER TOPICS ---
+    function filterTopics() {
+      const query = document.getElementById('searchInput').value.toLowerCase().trim();
+      const cards = document.querySelectorAll('.topic-card');
+      const clearBtn = document.getElementById('clearSearchBtn');
+      let visibleCount = 0;
+
+      if (query.length > 0) {
+        clearBtn.classList.remove('hidden');
+      } else {
+        clearBtn.classList.add('hidden');
+      }
+
+      cards.forEach(card => {
+        const title = card.getAttribute('data-title').toLowerCase();
+        const keywords = card.getAttribute('data-keywords').toLowerCase();
+        const category = card.getAttribute('data-category').toLowerCase();
+
+        if (title.includes(query) || keywords.includes(query) || category.includes(query)) {
+          card.classList.remove('hidden');
+          visibleCount++;
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+
+      const noRes = document.getElementById('noResults');
+      if (visibleCount === 0) {
+        noRes.classList.remove('hidden');
+      } else {
+        noRes.classList.add('hidden');
+      }
+    }
+
+    function quickSearch(keyword) {
+      document.getElementById('searchInput').value = keyword;
+      filterTopics();
+      document.getElementById('topik').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function clearSearch() {
+      document.getElementById('searchInput').value = '';
+      filterTopics();
+    }
+
+    function filterCategory(cat, btn) {
+      // update active button styles
+      document.querySelectorAll('.category-btn').forEach(b => {
+        b.className = 'category-btn px-3 py-2 rounded-xl bg-white text-slate-700 hover:bg-emerald-50 border border-slate-200 transition';
+      });
+      btn.className = 'category-btn active px-3.5 py-2 rounded-xl bg-emerald-800 text-white shadow-sm transition';
+
+      const cards = document.querySelectorAll('.topic-card');
+      let visibleCount = 0;
+
+      cards.forEach(card => {
+        const itemCat = card.getAttribute('data-category');
+        if (cat === 'all' || itemCat === cat) {
+          card.classList.remove('hidden');
+          visibleCount++;
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+
+      const noRes = document.getElementById('noResults');
+      if (visibleCount === 0) {
+        noRes.classList.remove('hidden');
+      } else {
+        noRes.classList.add('hidden');
+      }
+    }
+
+
+    // --- 3. REVISION PROGRESS TRACKER (LOCALSTORAGE) ---
+    function initTracker() {
+      const saved = JSON.parse(localStorage.getItem('ekalam_mastered') || '[]');
+      saved.forEach(id => {
+        const checkbox = document.getElementById(`check-${id}`);
+        if (checkbox) checkbox.checked = true;
+      });
+      updateTrackerUI(saved.length);
+    }
+
+    function toggleMastered(id) {
+      let saved = JSON.parse(localStorage.getItem('ekalam_mastered') || '[]');
+      const checkbox = document.getElementById(`check-${id}`);
+      if (checkbox.checked) {
+        if (!saved.includes(id)) saved.push(id);
+      } else {
+        saved = saved.filter(item => item !== id);
+      }
+      localStorage.setItem('ekalam_mastered', JSON.stringify(saved));
+      updateTrackerUI(saved.length);
+    }
+
+    function updateTrackerUI(count) {
+      const counter = document.getElementById('tracker-counter');
+      if (counter) {
+        counter.innerText = `${count}/10 Topik Dikuasai`;
+      }
+    }
+
+
+    // --- 4. FLASHCARD DRILL SYSTEM ---
+    const flashcardsData = [
+      {
+        badge: 'Bhgn Tilawah',
+        q: 'Apakah maksud perbuatan mempermainkan agama menurut Surah Al-An\'am ayat 70?',
+        a: 'Perbuatan mempersendakan hukum syarak (istihza\'), menjadikan syiar Islam bahan lawak jenaka, dan meremehkan ketetapan al-Quran & sunnah.'
+      },
+      {
+        badge: 'Bhgn Hadis',
+        q: 'Nyatakan maksud Qazaf dalam senarai 7 dosa besar yang membinasakan.',
+        a: 'Menuduh perempuan mukminah yang suci dan terpelihara melakukan zina tanpa membawa 4 orang saksi lelaki yang adil.'
+      },
+      {
+        badge: 'Hukum Tajwid',
+        q: 'Berapakah kadar harakat bagi Mad Lazim dan apakah contoh Mad Lazim Kalimi Muthaqqal?',
+        a: 'Wajib dibaca 6 harakat. Contohnya perkataan الضَّالِّينَ kerana huruf mad bertemu huruf bertasydid (sabdu) dalam satu kalimah.'
+      },
+      {
+        badge: 'Bhgn Akidah',
+        q: 'Apakah maksud nama Allah SWT Al-Jabbar?',
+        a: 'Allah SWT Maha Berkuasa Memaksa sekalian makhluk menurut kehendak-Nya yang mutlak, dan tiada sesiapa dapat menghalang kehendak-Nya.'
+      },
+      {
+        badge: 'Bhgn Akidah',
+        q: 'Apakah 2 ciri utama ajaran sesat dari segi ibadah dan akidah?',
+        a: '1. Mengaku diri nabi/Imam Mahdi. 2. Meminda rukun Islam/solat (contohnya solat hanya berniat tanpa rukun fi\'li).'
+      },
+      {
+        badge: 'Bhgn Ibadah',
+        q: 'Apakah perbezaan antara akad Al-Ijarah dengan Ar-Rahnu?',
+        a: 'Al-Ijarah ialah akad sewaan manfaat benda/perkhidmatan dengan bayaran, manakala Ar-Rahnu ialah akad cagaran barang berharga bagi jaminan hutang.'
+      },
+      {
+        badge: 'Bhgn Ibadah',
+        q: 'Berapakah bilangan rukuk dalam 2 rakaat Solat Sunat Gerhana?',
+        a: '4 kali rukuk (setiap satu rakaat ada 2 kali rukuk dan 2 kali berdiri membaca surah).'
+      },
+      {
+        badge: 'Bhgn Sirah',
+        q: 'Namakan dua buah karya teragung Imam Asy-Syafi\'i r.a.',
+        a: '1. Kitab Al-Umm (Fiqh Mazhab Syafi\'i). 2. Kitab Ar-Risalah (Kitab Usul Fiqh pertama di dunia).'
+      },
+      {
+        badge: 'Bhgn Sirah',
+        q: 'Siapakah pengasas Kerajaan Umaiyyah dan di manakah pusat pemerintahannya?',
+        a: 'Diasaskan oleh Muawiyah bin Abi Sufyan pada tahun 41 Hijrah dan berpusat di Damsyik, Syria.'
+      },
+      {
+        badge: 'Bhgn Adab',
+        q: 'Mengapakah sifat Khauf dan Raja\' perlu seimbang seperti dua sayap burung?',
+        a: 'Supaya manusia takut berbuat maksiat (Khauf) tetapi tidak berputus asa daripada rahmat dan taubat kepada Allah (Raja\').'
+      }
+    ];
+
+    let fcIndex = 0;
+    let fcFlipped = false;
+
+    function renderFlashcard() {
+      const data = flashcardsData[fcIndex];
+      document.getElementById('fc-current').innerText = fcIndex + 1;
+      document.getElementById('fc-total').innerText = flashcardsData.length;
+      document.getElementById('fc-badge').innerText = data.badge;
+
+      if (fcFlipped) {
+        document.getElementById('fc-label').innerText = 'JAWAPAN / KATA KUNCI';
+        document.getElementById('fc-content').innerText = data.a;
+        document.getElementById('fc-content').classList.add('text-emerald-800');
+      } else {
+        document.getElementById('fc-label').innerText = 'SOALAN / KATA KUNCI';
+        document.getElementById('fc-content').innerText = data.q;
+        document.getElementById('fc-content').classList.remove('text-emerald-800');
+      }
+    }
+
+    function flipFlashcard() {
+      fcFlipped = !fcFlipped;
+      renderFlashcard();
+    }
+
+    function nextFlashcard() {
+      fcFlipped = false;
+      fcIndex = (fcIndex + 1) % flashcardsData.length;
+      renderFlashcard();
+    }
+
+    function prevFlashcard() {
+      fcFlipped = false;
+      fcIndex = (fcIndex - 1 + flashcardsData.length) % flashcardsData.length;
+      renderFlashcard();
+    }
+
+
+    // --- 5. INTERACTIVE QUIZ SYSTEM ---
+    const quizQuestions = [
+      {
+        category: 'Bhgn Tilawah',
+        question: 'Apakah akibat utama seseorang yang mempersendakan hukum Islam mengikut ketetapan syarak?',
+        options: [
+          'Hanya dikenakan bayaran denda fidyah',
+          'Boleh membatalkan iman dan terkeluar dari Islam (murtad)',
+          'Amal ibadahnya ditangguhkan selama 40 hari',
+          'Wajib mengulangi ibadah haji semula'
+        ],
+        answer: 1,
+        explanation: 'Mempersendakan hukum Islam (istihza\') merupakan perkara yang membatalkan iman dan mengundang seksaan neraka.'
+      },
+      {
+        category: 'Bhgn Hadis',
+        question: 'Antara berikut, yang manakah BUKAN dalam kalangan 7 dosa besar (Al-Mubiqaat)?',
+        options: [
+          'Memakan riba',
+          'Lari dari medan peperangan jihad',
+          'Mengambil wuduk melebihi tiga kali',
+          'Menuduh wanita mukminah berzina (qazaf)'
+        ],
+        answer: 2,
+        explanation: 'Membasuh lebih tiga kali ketika wuduk hanyalah perkara makruh, manakala syirik, sihir, membunuh, riba, makan harta anak yatim, lari dari perang, dan qazaf ialah 7 dosa besar.'
+      },
+      {
+        category: 'Hukum Tajwid',
+        question: 'Kalimah (ءَآلْـَٰٔنَ) dalam Surah Yunus merupakan contoh bagi hukum tajwid:',
+        options: [
+          'Mad Lazim Harfi Muthaqqal',
+          'Mad Lazim Kalimi Mukhaffaf',
+          'Mad Wajib Muttasil',
+          'Mad Silah Thowilah'
+        ],
+        answer: 1,
+        explanation: 'Huruf mad bertemu huruf bertanda sukun asli tanpa sabdu dalam satu perkataan, dibaca 6 harakat secara ringan (Mukhaffaf).'
+      },
+      {
+        category: 'Bhgn Akidah',
+        question: 'Nama Allah SWT "Al-Jabbar" memberi pengertian bahawa Allah:',
+        options: [
+          'Maha Pengampun bagi mereka yang bertaubat',
+          'Maha Mendengar segala bisikan makhluk-Nya',
+          'Maha Berkuasa Memaksa sekalian makhluk menurut kehendak-Nya',
+          'Maha Memberi rezeki kepada orang kafir dan mukmin'
+        ],
+        answer: 2,
+        explanation: 'Al-Jabbar bermaksud Maha Perkasa dan Maha Memaksa segala sesuatu tunduk kepada kehendak-Nya yang mutlak.'
+      },
+      {
+        category: 'Bhgn Akidah',
+        question: 'Pernyataan berikut merupakan ciri ajaran sesat KECUALI:',
+        options: [
+          'Mendakwa pemimpin menerima wahyu baru',
+          'Menghalalkan perkara haram seperti nikah batin',
+          'Menggalakkan umat Islam merujuk ulama Ahli Sunnah Wal Jamaah',
+          'Mendakwa ibadah solat cukup sekadar niat di dalam hati'
+        ],
+        answer: 2,
+        explanation: 'Merujuk ulama muktabar Ahli Sunnah Wal Jamaah adalah benteng pertahanan akidah, bukan ciri ajaran sesat.'
+      },
+      {
+        category: 'Bhgn Ibadah',
+        question: 'Akad "menjadikan sesuatu barang berharga sebagai cagaran hutang" dikenali sebagai:',
+        options: [
+          'Al-Mudharabah',
+          'Ar-Rahnu (Gadaian)',
+          'Al-Musyarakah',
+          'Al-Ijarah'
+        ],
+        answer: 1,
+        explanation: 'Ar-Rahnu ialah akad cagaran harta bernilai untuk menjamin bayaran hutang sekiranya penghutang gagal melunaskannya.'
+      },
+      {
+        category: 'Bhgn Ibadah',
+        question: 'Apakah ciri istimewa yang membezakan Solat Sunat Gerhana dengan solat sunat yang lain?',
+        options: [
+          'Mempunyai 4 kali rukuk dan 4 kali bacaan surah dalam 2 rakaat',
+          'Dilakukan sebanyak 5 rakaat berturut-turut tanpa tahiyyat',
+          'Tidak disunatkan membaca al-Fatihah',
+          'Hanya boleh dilakukan secara bersendirian di rumah'
+        ],
+        answer: 0,
+        explanation: 'Solat gerhana mempunyai 2 kali rukuk dan 2 kali qiam bagi setiap rakaat, menjadikan jumlahnya 4 rukuk dan 4 qiam bagi 2 rakaat.'
+      },
+      {
+        category: 'Bhgn Sirah',
+        question: 'Di manakah tempat kelahiran dan kewafatan Imam Asy-Syafi\'i r.a.?',
+        options: [
+          'Lahir di Madinah, wafat di Baghdad',
+          'Lahir di Gaza, wafat di Mesir',
+          'Lahir di Kufah, wafat di Damsyik',
+          'Lahir di Mekah, wafat di Yaman'
+        ],
+        answer: 1,
+        explanation: 'Imam Asy-Syafi\'i lahir di Gaza (Palestin) pada 150H dan wafat di Fustat, Mesir pada 204H.'
+      },
+      {
+        category: 'Bhgn Sirah',
+        question: 'Khalifah Kerajaan Umaiyyah yang terkenal dengan keadilan sosial dan memulakan pembukuan hadis rasmi ialah:',
+        options: [
+          'Muawiyah bin Abi Sufyan',
+          'Abdul Malik bin Marwan',
+          'Umar bin Abdul Aziz',
+          'Al-Walid bin Abdul Malik'
+        ],
+        answer: 2,
+        explanation: 'Khalifah Umar bin Abdul Aziz terkenal dengan pemerintahan yang adil, hidup zuhud, dan memerintahkan kodifikasi hadis secara rasmi.'
+      },
+      {
+        category: 'Bhgn Adab',
+        question: 'Adab terhadap orang sakit dari aspek "Rohani" merangkumi tindakan berikut:',
+        options: [
+          'Membawa buah tangan makanan segera',
+          'Mengingatkan pesakit tentang kewajipan solat dan mendoakan kesembuhan',
+          'Berbual perkara yang bising dan menghiburkan pesakit hingga lewat malam',
+          'Menyuruh pesakit berjalan jauh untuk bersenam'
+        ],
+        answer: 1,
+        explanation: 'Aspek rohani menitikberatkan ibadah solat pesakit (rukhsah tayamum), doa kesembuhan, dan nasihat taubat.'
+      }
+    ];
+
+    let curQ = 0;
+    let userAnswers = new Array(quizQuestions.length).fill(null);
+
+    function renderQuizQuestion() {
+      const q = quizQuestions[curQ];
+      document.getElementById('quizQuestionNum').innerText = `Soalan ${curQ + 1} daripada ${quizQuestions.length}`;
+      document.getElementById('quizCategoryBadge').innerText = q.category;
+      document.getElementById('quizQuestionText').innerText = q.question;
+
+      const optsContainer = document.getElementById('quizOptions');
+      optsContainer.innerHTML = '';
+
+      q.options.forEach((opt, idx) => {
+        const btn = document.createElement('button');
+        const isSelected = userAnswers[curQ] === idx;
+        let btnClasses = 'w-full text-left p-4 rounded-xl border text-sm font-medium transition flex items-center justify-between ';
+
+        if (userAnswers[curQ] !== null) {
+          // already answered
+          if (idx === q.answer) {
+            btnClasses += 'bg-emerald-100 border-emerald-500 text-emerald-950 font-bold';
+          } else if (isSelected) {
+            btnClasses += 'bg-rose-100 border-rose-500 text-rose-950';
+          } else {
+            btnClasses += 'bg-white border-slate-200 text-slate-400 opacity-60';
+          }
+        } else {
+          btnClasses += 'bg-white hover:bg-emerald-50 border-slate-200 hover:border-emerald-300 text-slate-700';
+        }
+
+        btn.className = btnClasses;
+        btn.innerHTML = `<span>${String.fromCharCode(65 + idx)}. ${opt}</span>`;
+
+        if (userAnswers[curQ] === null) {
+          btn.onclick = () => selectQuizOption(idx);
+        }
+        optsContainer.appendChild(btn);
+      });
+
+      // Explanation view
+      const expBox = document.getElementById('quizExplanation');
+      if (userAnswers[curQ] !== null) {
+        expBox.classList.remove('hidden');
+        const isCorrect = userAnswers[curQ] === q.answer;
+        document.getElementById('quizFeedbackTitle').innerHTML = isCorrect 
+          ? '<span class="text-emerald-700 font-bold">✅ TEPAT SEKALI!</span>' 
+          : '<span class="text-rose-700 font-bold">❌ KURANG TEPAT!</span>';
+        document.getElementById('quizFeedbackBody').innerText = q.explanation;
+      } else {
+        expBox.classList.add('hidden');
+      }
+
+      // Prev button state
+      document.getElementById('prevQuestionBtn').disabled = curQ === 0;
+
+      // Next / Finish button label
+      const nextBtn = document.getElementById('nextQuestionBtn');
+      if (curQ === quizQuestions.length - 1) {
+        nextBtn.innerText = 'Lihat Keputusan Kuiz 🏆';
+      } else {
+        nextBtn.innerText = 'Soalan Seterusnya →';
+      }
+
+      updateQuizScoreDisplay();
+    }
+
+    function selectQuizOption(idx) {
+      userAnswers[curQ] = idx;
+      renderQuizQuestion();
+    }
+
+    function nextQuestion() {
+      if (curQ < quizQuestions.length - 1) {
+        curQ++;
+        renderQuizQuestion();
+      } else {
+        finishQuiz();
+      }
+    }
+
+    function prevQuestion() {
+      if (curQ > 0) {
+        curQ--;
+        renderQuizQuestion();
+      }
+    }
+
+    function updateQuizScoreDisplay() {
+      let score = 0;
+      userAnswers.forEach((ans, idx) => {
+        if (ans !== null && ans === quizQuestions[idx].answer) score++;
+      });
+      document.getElementById('quizScoreDisplay').innerText = `${score} / ${quizQuestions.length}`;
+    }
+
+    function finishQuiz() {
+      let score = 0;
+      userAnswers.forEach((ans, idx) => {
+        if (ans !== null && ans === quizQuestions[idx].answer) score++;
+      });
+
+      document.getElementById('quizContainer').classList.add('hidden');
+      document.getElementById('quizResultView').classList.remove('hidden');
+      document.getElementById('finalScoreDisplay').innerText = `${score} / ${quizQuestions.length}`;
+
+      const msg = document.getElementById('finalFeedbackMessage');
+      if (score >= 9) {
+        msg.innerText = 'Mumtaz (Cemerlang Tertinggi)! Penguasaan kata kunci anda sangat kukuh dan bersedia meraih gred A+ dalam peperiksaan SPM.';
+      } else if (score >= 7) {
+        msg.innerText = 'Jayyid Jiddan (Amat Baik)! Anda memahami sebahagian besar fakta. Sila semak semula topik yang silap sebelum hari peperiksaan.';
+      } else {
+        msg.innerText = 'Teruskan Ulang Kaji! Luangkan masa membaca nota penuh dalam kad di bahagian atas dan ulangi kuiz ini sekali lagi.';
+      }
+    }
+
+    function restartQuiz() {
+      curQ = 0;
+      userAnswers = new Array(quizQuestions.length).fill(null);
+      document.getElementById('quizContainer').classList.remove('hidden');
+      document.getElementById('quizResultView').classList.add('hidden');
+      renderQuizQuestion();
+    }
+
+    // Initialize on load
+    window.addEventListener('DOMContentLoaded', () => {
+      initTracker();
+      renderFlashcard();
+      renderQuizQuestion();
+    });
+  </script>
+</body>
+</html>
